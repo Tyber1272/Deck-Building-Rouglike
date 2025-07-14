@@ -7,6 +7,8 @@ public class SlotScript : MonoBehaviour
 {
     [SerializeField] Image Image;
     [SerializeField] Text speedText;
+    [SerializeField] Image highLight;
+    [SerializeField] Color[] highlightColors; //0 - active, 1 -unactive
 
     public float speed;
     public Color[] teamsColors;
@@ -24,11 +26,25 @@ public class SlotScript : MonoBehaviour
         {
             transform.GetComponentInChildren<actionHolderScript>().player = false;
         }
+
+        highLightShow(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void highLightShow(bool show) 
+    {
+        if (show) 
+        {
+            highLight.color = highlightColors[1];
+        }
+        else 
+        {
+            highLight.color = highlightColors[0];
+        }
     }
 }

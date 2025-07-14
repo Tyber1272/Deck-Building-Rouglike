@@ -169,7 +169,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.24994652, g: 0.38228562, b: 0.4490565, a: 0}
+  m_BackGroundColor: {r: 0.45474207, g: 0.3394588, b: 0.5245282, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -237,11 +237,10 @@ GameObject:
   - component: {fileID: 903701378}
   - component: {fileID: 903701377}
   - component: {fileID: 903701376}
-  - component: {fileID: 903701379}
   - component: {fileID: 903701375}
   m_Layer: 5
   m_Name: slotManager
-  m_TagString: Untagged
+  m_TagString: slotManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,6 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 5343837878650882177, guid: 0dd611e40644fd347bab62bbdf5f7ab4, type: 3}
+  coolDownAction: 1
+  turnInProcess: 0
 --- !u!114 &903701377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,18 +343,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903701373}
   m_CullTransparentMesh: 1
---- !u!114 &903701379
-MonoBehaviour:
+--- !u!1 &955435020
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903701373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2f4833144fcfc4ea2f587d9766fe88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955435021}
+  m_Layer: 0
+  m_Name: actionsMethods
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955435021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955435020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &985404365
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 20
   MaxHealth: 20
-  speeds: 050000000300000002000000
+  speeds: 05000000030000000200000011000000290000003e000000
   team: 0
   HPText: {fileID: 432759937}
   HPImage: {fileID: 1240821798}
@@ -434,6 +454,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2181456500977624675, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+      propertyPath: speeds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181456500977624675, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+      propertyPath: speeds.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181456500977624675, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+      propertyPath: speeds.Array.data[1]
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5974159733989312421, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -1115,7 +1147,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1983366836}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 903701376}
+        m_TargetAssemblyTypeName: SlotsManager, Assembly-CSharp
+        m_MethodName: startTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1983366836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1414,3 +1458,4 @@ SceneRoots:
   - {fileID: 1051701304}
   - {fileID: 1897336698}
   - {fileID: 1673795166}
+  - {fileID: 955435021}

@@ -21,9 +21,11 @@ public class actionPrefabScript : MonoBehaviour
     bool isTouchingMouse;
     bool inRange;
     GameObject targetHolder = null;
+    SlotsManager slotsManager;
 
     private void Start()
     {
+        slotsManager = GameObject.FindGameObjectWithTag("slotManager").GetComponent<SlotsManager>();
         mainCam = Camera.main;
         actionHolders = GameObject.FindGameObjectsWithTag("actionHolder");
         Invoke("Drop", 0.02f);
@@ -59,7 +61,7 @@ public class actionPrefabScript : MonoBehaviour
 
     public void Drag()
     {
-        if (!Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess)
         {
             return;
         }

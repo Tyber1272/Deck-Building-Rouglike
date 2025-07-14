@@ -8,7 +8,11 @@ public class SlotsManager : MonoBehaviour
     GameObject[] enemies;
     List<HealthScript> healthScripts = new List<HealthScript>();
     List<slotClass> slotsList = new List<slotClass>();
+    List<GameObject> slotsObjectsList = new List<GameObject>();
     [SerializeField] GameObject slotPrefab;
+    int actionCount;
+    public float coolDownAction;
+    public bool turnInProcess;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -31,6 +35,7 @@ public class SlotsManager : MonoBehaviour
             healthScripts.Add(enemy.GetComponent<HealthScript>());
         }
         slotsList.Clear();
+        slotsObjectsList.Clear();
         foreach (var script in healthScripts)
         {
             foreach (var order in script.speeds)
@@ -44,15 +49,41 @@ public class SlotsManager : MonoBehaviour
 
         foreach (var slot in slotsList)
         {
-                GameObject currentSlot = Instantiate(slotPrefab, transform.position, transform.rotation, gameObject.transform);
-                SlotScript slotScript = currentSlot.GetComponent<SlotScript>();
-
-                slotScript.speed = slot.speedOrder;
-                slotScript.unitTeam = slot.healthScript.team;
+            GameObject currentSlot = Instantiate(slotPrefab, transform.position, transform.rotation, gameObject.transform);
+            SlotScript slotScript = currentSlot.GetComponent<SlotScript>();
+            slotsObjectsList.Add(currentSlot);
+            slotScript.speed = slot.speedOrder;
+            slotScript.unitTeam = slot.healthScript.team;
         }
     }
 
+    public void startTurn() 
+    {
+        if (turnInProcess)
+        {
+            return;
+        }
+        turnInProcess = true;
+        actionCount = 0;
+        Invoke("doAction", coolDownAction);
+    }
+    public void doAction() 
+    {
+        if (actionCount != 0)
+        {
+            slotsObjectsList[actionCount - 1].GetComponent<SlotScript>().highLightShow(false);
+        }
+        if (slotsObjectsList.Count <= actionCount)
+        {
+            turnInProcess = false;
 
+
+            return; 
+        }
+        slotsObjectsList[actionCount].GetComponent<SlotScript>().highLightShow(true);
+        Invoke("doAction", coolDownAction);
+        actionCount++;
+    }
     class slotClass
     {
         public int speedOrder;
