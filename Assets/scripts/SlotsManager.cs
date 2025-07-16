@@ -35,14 +35,16 @@ public class SlotsManager : MonoBehaviour
         foreach (var enemy in enemies)
         {
             healthScripts.Add(enemy.GetComponent<HealthScript>());
+            enemy.GetComponent<actionInventory>().newTurn();
         }
+        player.GetComponent<actionInventory>().newTurn();
         slotsList.Clear();
         slotsObjectsList.Clear();
         foreach (var script in healthScripts)
         {
             foreach (var order in script.speeds)
             {
-                slotsList.Add(new slotClass(order, script));
+                slotsList.Add(new slotClass(order, script, script.gameObject));
             }
         }
 
@@ -56,6 +58,10 @@ public class SlotsManager : MonoBehaviour
             slotsObjectsList.Add(currentSlot);
             slotScript.speed = slot.speedOrder;
             slotScript.unitTeam = slot.healthScript.team;
+            if (slotScript.unitTeam == 1)
+            {
+                slotScript.user = slot.user;
+            }
         }
     }
 
@@ -78,7 +84,21 @@ public class SlotsManager : MonoBehaviour
         if (slotsObjectsList.Count <= actionCount)
         {
             turnInProcess = false;
-
+            foreach (var slot in slotsObjectsList)
+            {
+                Destroy(slot);
+            }
+            GameObject[] actions = GameObject.FindGameObjectsWithTag("action");
+            foreach (var action in actions) 
+            {
+                Destroy(action);
+            }
+            GameObject[] holders = GameObject.FindGameObjectsWithTag("actionHolder");
+            foreach (var holder in holders)
+            {
+                Destroy(holder);
+            }
+            newTurn();
 
             return; 
         }
@@ -111,11 +131,13 @@ public class SlotsManager : MonoBehaviour
     {
         public int speedOrder;
         public HealthScript healthScript;
+        public GameObject user;
 
-        public slotClass(int _speedOrder, HealthScript _healthScript) 
+        public slotClass(int _speedOrder, HealthScript _healthScript, GameObject _user) 
         {
             speedOrder = _speedOrder;
             healthScript = _healthScript;
+            user = _user;
         }
     }
     

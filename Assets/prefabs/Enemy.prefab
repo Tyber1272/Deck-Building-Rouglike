@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holders: []
   player: 0
-  actionPrefab: {fileID: 0}
+  actionPrefab: {fileID: 5830733419929404447, guid: ba3ecd49b3d3cd848b06ad838a4da549, type: 3}
   Inventory: {fileID: 0}
   holdersInventory: {fileID: 0}
   holderPrefab: {fileID: 0}

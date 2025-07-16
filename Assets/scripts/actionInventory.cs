@@ -18,18 +18,30 @@ public class actionInventory : MonoBehaviour
 
     private void Start()
     {
-        unitActions.Add(new actionsClass.action("strike", 5));
-        unitActions.Add(new actionsClass.action("strike", 5));
-        unitActions.Add(new actionsClass.action("defend", 7));
-        unitActions.Add(new actionsClass.action("heal", 4));
-        unitActions.Add(new actionsClass.action("8==D", 69));
+        Canvas = GameObject.FindGameObjectWithTag("Canvas");
+        if (!player)
+        {
+            unitActions.Add(new actionsClass.action("strike", 5));
+            unitActions.Add(new actionsClass.action("defend", 7));
+        }
+        else 
+        {
+            unitActions.Add(new actionsClass.action("strike", 5));
+            unitActions.Add(new actionsClass.action("strike", 5));
+            unitActions.Add(new actionsClass.action("defend", 7));
+            unitActions.Add(new actionsClass.action("heal", 4));
+            unitActions.Add(new actionsClass.action("8==D", 69));
+        }
 
-        newTurn();
     }
 
-    void newTurn() 
+    public void newTurn() 
     {
-        if (player)
+        Invoke("startTurn", 0.1f);
+    }
+    void startTurn() 
+    {
+        if (player) 
         {
             Inventory.GetComponent<HorizontalLayoutGroup>().enabled = true;
             holders.Clear();
@@ -42,14 +54,28 @@ public class actionInventory : MonoBehaviour
             {
                 GameObject currentAction = Instantiate(actionPrefab, transform.position, transform.rotation, Inventory.transform);
                 actionPrefabScript script = currentAction.GetComponent<actionPrefabScript>();
-                script.setStats(action.name, action.power, holders[count]);
+                script.setStats(action.name, action.power, holders[count], gameObject);
                 count++;
             }
             Invoke("diseableInventoryLayout", 0.1f);
-            
         }
-    }
+        else
+        {
+            GameObject[] slots = GameObject.FindGameObjectsWithTag("slot");
+            foreach (var slot in slots) 
+            {
+                SlotScript script = slot.GetComponent<SlotScript>();
+                if (script.user == gameObject)
+                {
+                    actionsClass.action action = unitActions[Random.Range(0, unitActions.Count)];
+                    GameObject currentAction = Instantiate(actionPrefab, slot.transform.position, transform.rotation, Canvas.transform);
+                    actionPrefabScript script2 = currentAction.GetComponent<actionPrefabScript>();
+                    script2.setStats(action.name, action.power, slot.GetComponent<SlotScript>().actionHolderScript.gameObject, gameObject);
+                }
+            }
+        }
 
+    }
     void diseableInventoryLayout() 
     {
         Inventory.GetComponent<HorizontalLayoutGroup>().enabled = false;

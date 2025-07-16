@@ -179,6 +179,7 @@ MonoBehaviour:
   - {r: 0.57924527, g: 0.6606904, b: 1, a: 1}
   - {r: 1, g: 0.5566037, b: 0.5566037, a: 1}
   unitTeam: 0
+  user: {fileID: 0}
 --- !u!114 &89233666907761204
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class SlotScript : MonoBehaviour
     public float speed;
     public Color[] teamsColors;
     public int unitTeam;
+    public GameObject user;
     void Start()
     {
         Image.color = teamsColors[unitTeam];

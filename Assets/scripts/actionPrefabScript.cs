@@ -16,6 +16,7 @@ public class actionPrefabScript : MonoBehaviour
     public string _name;
     public float power;
     public GameObject target;
+    public GameObject user;
     bool canHaveTarget;
 
 
@@ -54,19 +55,19 @@ public class actionPrefabScript : MonoBehaviour
                 if (enemy.GetComponent<HealthScript>().mouseOver == true && Input.GetMouseButtonDown(1) && canHaveTarget)
                 {
                     target = enemy;
-                    print(target);
                     showTargetIcon();
                 }
             }
         }
     }
-    public void setStats(string name, float _power, GameObject slot) 
+    public void setStats(string name, float _power, GameObject slot, GameObject _user) 
     {
         nameText.text = name;
         powerText.text = _power.ToString();
         currentSlot = slot;
         currentSlot.GetComponent<actionHolderScript>().heldSlot = gameObject;
-
+        user = _user;
+        
         _name = name;
         power = _power;
 
