@@ -10,11 +10,13 @@ public class SlotsManager : MonoBehaviour
     List<slotClass> slotsList = new List<slotClass>();
     List<GameObject> slotsObjectsList = new List<GameObject>();
     [SerializeField] GameObject slotPrefab;
+    actionsMethods actionsMethods;
     int actionCount;
     public float coolDownAction;
     public bool turnInProcess;
     void Start()
     {
+        actionsMethods = GameObject.FindGameObjectWithTag("actionsMethods").GetComponent<actionsMethods>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemies = GameObject.FindGameObjectsWithTag("enemy");
         newTurn();
@@ -81,6 +83,12 @@ public class SlotsManager : MonoBehaviour
             return; 
         }
         slotsObjectsList[actionCount].GetComponent<SlotScript>().highLightShow(true);
+        SlotScript script = slotsObjectsList[actionCount].GetComponent< SlotScript>();
+        if (script.actionHolderScript.heldSlot != null)
+        {
+            actionPrefabScript action = script.actionHolderScript.heldSlot.GetComponent<actionPrefabScript>();
+            actionsMethods.doAction(action._name, action.power, GameObject.FindGameObjectWithTag("Player"));
+        }
         Invoke("doAction", coolDownAction);
         actionCount++;
     }

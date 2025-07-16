@@ -9,6 +9,7 @@ public class SlotScript : MonoBehaviour
     [SerializeField] Text speedText;
     [SerializeField] Image highLight;
     [SerializeField] Color[] highlightColors; //0 - active, 1 -unactive
+    public actionHolderScript actionHolderScript;
 
     public float speed;
     public Color[] teamsColors;

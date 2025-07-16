@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using UnityEditor.Build;
+
 
 public class actionPrefabScript : MonoBehaviour
 {
@@ -11,14 +13,21 @@ public class actionPrefabScript : MonoBehaviour
     public Text powerText;
     public Image Image;
 
+    public string _name;
+    public float power;
+    public GameObject target;
+    bool canHaveTarget;
+
+
     [SerializeField] GameObject holderPrefab;
     //[SerializeField] GameObject Canvas;
 
     [SerializeField] Camera mainCam;
     [SerializeField] float slotPlaceDistance;
+    GameObject[] enemies;
     GameObject[] actionHolders;
     GameObject currentSlot;
-    bool isTouchingMouse;
+    bool isHeld;
     bool inRange;
     GameObject targetHolder = null;
     SlotsManager slotsManager;
@@ -28,44 +37,90 @@ public class actionPrefabScript : MonoBehaviour
         slotsManager = GameObject.FindGameObjectWithTag("slotManager").GetComponent<SlotsManager>();
         mainCam = Camera.main;
         actionHolders = GameObject.FindGameObjectsWithTag("actionHolder");
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
         Invoke("Drop", 0.02f);
+        if (canHaveTarget && enemies.Length > 0)
+        {
+            target = enemies[0];
+        }
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (isHeld)
         {
-            Drop();
+            enemies = GameObject.FindGameObjectsWithTag("enemy");
+            foreach (var enemy in enemies)
+            {
+                if (enemy.GetComponent<HealthScript>().mouseOver == true && Input.GetMouseButtonDown(1) && canHaveTarget)
+                {
+                    target = enemy;
+                    print(target);
+                    showTargetIcon();
+                }
+            }
         }
     }
-    public void setStats(string name, float power, GameObject slot) 
+    public void setStats(string name, float _power, GameObject slot) 
     {
         nameText.text = name;
-        powerText.text = power.ToString();
+        powerText.text = _power.ToString();
         currentSlot = slot;
+        currentSlot.GetComponent<actionHolderScript>().heldSlot = gameObject;
+
+        _name = name;
+        power = _power;
 
         switch (name)
         {
             case "strike":
                 Image.color = Color.red;
+                canHaveTarget = true;
                 break;
             case "defend":
                 Image.color = Color.blue;
+                canHaveTarget = false;
                 break;
             case "heal": 
                 Image.color = Color.green;
+                canHaveTarget = false;
                 break;
         }  
         
         
     }
-
+    void showTargetIcon() 
+    {
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (var enemy in enemies)
+        {
+            if (target != enemy)
+            {
+                enemy.GetComponent<HealthScript>().showTargetIcon(false);
+            }
+            else if (enemy == target)
+            {
+                enemy.GetComponent<HealthScript>().showTargetIcon(true);
+            }
+        }
+    }
+    public void mouseOver()
+    {
+        showTargetIcon();
+    }
+    public void mouseExit()
+    {
+        foreach (var enemy in enemies)
+        {
+            enemy.GetComponent<HealthScript>().showTargetIcon(false);
+        }
+    }
     public void Drag()
     {
         if (!Input.GetMouseButton(0) || slotsManager.turnInProcess)
         {
-            return;
+                return;
         }
-
+        isHeld = true;
         transform.position = Input.mousePosition;
         transform.SetAsLastSibling();
         float bestDistance = 1000;
@@ -92,28 +147,24 @@ public class actionPrefabScript : MonoBehaviour
             }
 
         }
+
+        
+
     }
     public void Drop() 
     {
-
-
-        //float bestDistance = 1000;
-        //float distance;
-        //GameObject targetHolder = null;
-        //foreach (var actionHolder in actionHolders) 
-        //{
-        //    distance = Vector2.Distance(transform.position, actionHolder.transform.position);
-        //    actionHolderScript script = actionHolder.GetComponent<actionHolderScript>();
-        //    if (distance < bestDistance && (script.heldSlot == null || script.heldSlot == gameObject) && script.player == true && distance <= slotPlaceDistance)
-        //    {
-        //        bestDistance = distance;
-        //        targetHolder = actionHolder;
-        //    }
-        //}
-
-        
+        if (Input.GetMouseButton(0))
+        {
+            return;
+        }
+        isHeld = false;
         if (targetHolder != null)
         {
+            foreach (var enemy in GameObject.FindGameObjectsWithTag("enemy"))
+            {
+                enemy.GetComponent<HealthScript>().showTargetIcon(false);
+            }
+
             if (Vector2.Distance(transform.position, targetHolder.transform.position) <= slotPlaceDistance)
             {
                 inRange = true;
@@ -122,6 +173,7 @@ public class actionPrefabScript : MonoBehaviour
             {
                 inRange = false;
             }
+            
             if (inRange)
             {
                 targetHolder.GetComponent<actionHolderScript>().slotInRange(false);

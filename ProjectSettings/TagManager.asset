@@ -8,6 +8,8 @@ TagManager:
   - actionHolder
   - slot
   - slotManager
+  - actionsMethods
+  - targetIcon
   layers:
   - Default
   - TransparentFX
