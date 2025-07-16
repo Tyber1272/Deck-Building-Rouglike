@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class actionsMethods : MonoBehaviour
 {
+    [SerializeField] GameObject[] effects;
     public void doAction(string name, float power, GameObject target) 
     {
-        print(name);
         switch (name)
         {
             case "strike":
@@ -25,17 +25,20 @@ public class actionsMethods : MonoBehaviour
     {
         print("attack");
         target.GetComponent<HealthScript>().changeHealth(-power);
+        Instantiate(effects[0], target.transform.position, transform.rotation);
     }
 
     void defend(float power, GameObject target)
     {
         print("block");
         //blok
+        Instantiate(effects[1], target.transform.position, transform.rotation);
     }
 
     void heal(float power, GameObject target) 
     {
         print("heal");
         target.GetComponent<HealthScript>().changeHealth(power);
+        Instantiate(effects[2], target.transform.position, transform.rotation);
     }
 }

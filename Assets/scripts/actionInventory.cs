@@ -19,6 +19,7 @@ public class actionInventory : MonoBehaviour
     private void Start()
     {
         unitActions.Add(new actionsClass.action("strike", 5));
+        unitActions.Add(new actionsClass.action("strike", 5));
         unitActions.Add(new actionsClass.action("defend", 7));
         unitActions.Add(new actionsClass.action("heal", 4));
         unitActions.Add(new actionsClass.action("8==D", 69));
