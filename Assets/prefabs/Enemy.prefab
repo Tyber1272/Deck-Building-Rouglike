@@ -135,11 +135,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 10
   MaxHealth: 10
+  block: 0
   speeds: 04000000
   team: 1
   mouseOver: 0
   HPText: {fileID: 4749446222412379621}
   HPImage: {fileID: 2951526044444278069}
+  blockText: {fileID: 613208365598627004}
   targetIcon: {fileID: 8302666496640438451}
 --- !u!114 &-3680643703699932710
 MonoBehaviour:
@@ -390,6 +392,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68c1c6857d0a9054984b4698e4685b00, type: 3}
+--- !u!114 &613208365598627004 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2214334078667748315, guid: 68c1c6857d0a9054984b4698e4685b00, type: 3}
+  m_PrefabInstance: {fileID: 1601144973338978151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2951526044444278069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4525420062851439186, guid: 68c1c6857d0a9054984b4698e4685b00, type: 3}

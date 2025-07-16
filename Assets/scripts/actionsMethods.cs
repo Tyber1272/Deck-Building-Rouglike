@@ -24,14 +24,14 @@ public class actionsMethods : MonoBehaviour
     void strike(float power, GameObject target) 
     {
         print("attack");
-        target.GetComponent<HealthScript>().changeHealth(-power);
+        target.GetComponent<HealthScript>().getDamage(power);
         Instantiate(effects[0], target.transform.position, transform.rotation);
     }
 
     void defend(float power, GameObject target)
     {
         print("block");
-        //blok
+        target.GetComponent<HealthScript>().changeBlock(power);
         Instantiate(effects[1], target.transform.position, transform.rotation);
     }
 
