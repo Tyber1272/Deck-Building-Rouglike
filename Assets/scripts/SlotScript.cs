@@ -10,6 +10,7 @@ public class SlotScript : MonoBehaviour
     [SerializeField] Image highLight;
     [SerializeField] Color[] highlightColors; //0 - active, 1 -unactive
     public actionHolderScript actionHolderScript;
+    [SerializeField] GameObject objectsParent;
 
     public float speed;
     public Color[] teamsColors;
@@ -23,7 +24,8 @@ public class SlotScript : MonoBehaviour
         if (unitTeam == 0)
         {
             transform.GetComponentInChildren<actionHolderScript>().player = true;
-            transform.position = new Vector3 (transform.position.x, transform.position.y - 100, transform.position.z);
+            objectsParent.transform.position = new Vector3(transform.position.x, transform.position.y - 60, transform.position.z);
+
         }
         else
         {
