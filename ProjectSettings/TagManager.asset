@@ -10,6 +10,8 @@ TagManager:
   - slotManager
   - actionsMethods
   - targetIcon
+  - action
+  - Canvas
   layers:
   - Default
   - TransparentFX

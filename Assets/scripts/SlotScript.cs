@@ -23,6 +23,7 @@ public class SlotScript : MonoBehaviour
         if (unitTeam == 0)
         {
             transform.GetComponentInChildren<actionHolderScript>().player = true;
+            transform.position = new Vector3 (transform.position.x, transform.position.y - 100, transform.position.z);
         }
         else
         {

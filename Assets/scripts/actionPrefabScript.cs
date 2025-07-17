@@ -32,9 +32,12 @@ public class actionPrefabScript : MonoBehaviour
     bool inRange;
     GameObject targetHolder = null;
     SlotsManager slotsManager;
+    Vector3 baseSize;
+    [SerializeField] Vector3 popUpSize;
 
     private void Start()
     {
+        baseSize = transform.localScale;
         slotsManager = GameObject.FindGameObjectWithTag("slotManager").GetComponent<SlotsManager>();
         mainCam = Camera.main;
         actionHolders = GameObject.FindGameObjectsWithTag("actionHolder");
@@ -43,6 +46,10 @@ public class actionPrefabScript : MonoBehaviour
         if (canHaveTarget && enemies.Length > 0)
         {
             target = enemies[0];
+        }
+        if (canHaveTarget && user.tag == "enemy")
+        {
+            target = GameObject.FindGameObjectWithTag("Player");
         }
     }
     private void Update()
@@ -102,7 +109,16 @@ public class actionPrefabScript : MonoBehaviour
             {
                 enemy.GetComponent<HealthScript>().showTargetIcon(true);
             }
+            if (enemy == user)
+            {
+                enemy.GetComponent<HealthScript>().showHighLight(true);
+            }
+            else if(enemy != user)
+            {
+                enemy.GetComponent<HealthScript>().showHighLight(false);
+            }
         }
+
     }
     public void mouseOver()
     {
@@ -114,10 +130,14 @@ public class actionPrefabScript : MonoBehaviour
         {
             enemy.GetComponent<HealthScript>().showTargetIcon(false);
         }
+        foreach (var enemy in enemies)
+        {
+            enemy.GetComponent<HealthScript>().showHighLight(false);
+        }
     }
     public void Drag()
     {
-        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess)
+        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess || user.tag == "enemy")
         {
                 return;
         }
@@ -194,6 +214,18 @@ public class actionPrefabScript : MonoBehaviour
         else
         {
             transform.position = currentSlot.transform.position;
+        }
+    }
+
+    public void popUp(bool bigger) 
+    {
+        if (bigger)
+        {
+            transform.localScale = baseSize + popUpSize;
+        }
+        else 
+        {
+            transform.localScale = baseSize;
         }
     }
 }

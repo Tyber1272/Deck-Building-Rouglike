@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,11 @@ public class actionInventory : MonoBehaviour
         if (!player)
         {
             unitActions.Add(new actionsClass.action("strike", 5));
-            unitActions.Add(new actionsClass.action("defend", 7));
+            unitActions.Add(new actionsClass.action("strike", 5));
+            unitActions.Add(new actionsClass.action("defend", 5));
+            unitActions.Add(new actionsClass.action("heal", 4));
+
+            holdersInventory = GameObject.FindGameObjectWithTag("enemiesActionsParent");
         }
         else 
         {
@@ -41,6 +46,7 @@ public class actionInventory : MonoBehaviour
     }
     void startTurn() 
     {
+        gameObject.GetComponent<HealthScript>().block = 0; gameObject.GetComponent<HealthScript>().updateStats();
         if (player) 
         {
             Inventory.GetComponent<HorizontalLayoutGroup>().enabled = true;
@@ -68,7 +74,7 @@ public class actionInventory : MonoBehaviour
                 if (script.user == gameObject)
                 {
                     actionsClass.action action = unitActions[Random.Range(0, unitActions.Count)];
-                    GameObject currentAction = Instantiate(actionPrefab, slot.transform.position, transform.rotation, Canvas.transform);
+                    GameObject currentAction = Instantiate(actionPrefab, slot.transform.position, transform.rotation, holdersInventory.transform);
                     actionPrefabScript script2 = currentAction.GetComponent<actionPrefabScript>();
                     script2.setStats(action.name, action.power, slot.GetComponent<SlotScript>().actionHolderScript.gameObject, gameObject);
                 }

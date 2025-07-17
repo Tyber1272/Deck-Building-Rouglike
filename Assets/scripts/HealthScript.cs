@@ -16,7 +16,7 @@ public class HealthScript : MonoBehaviour
     [SerializeField] Text HPText;
     [SerializeField] Image HPImage;
     [SerializeField] Text blockText;
-    [SerializeField] GameObject targetIcon;
+    [SerializeField] GameObject targetIcon; [SerializeField] GameObject highLight;
     void Start()
     {
         updateStats();
@@ -45,14 +45,14 @@ public class HealthScript : MonoBehaviour
         {
             Health = MaxHealth;
         }
-
+        updateStats();
     }
     public void changeBlock(float amount) 
     {
         block = block + amount;
         updateStats();
     }
-    void updateStats() 
+    public void updateStats() 
     {
         HPText.text = Health + "/" + MaxHealth;
         HPImage.fillAmount = Health / MaxHealth;
@@ -73,12 +73,46 @@ public class HealthScript : MonoBehaviour
             targetIcon.SetActive(false);
         }
     }
+    public void showHighLight(bool show)
+    {
+        if (show)
+        {
+            highLight.SetActive(true);
+        }
+        else
+        {
+            highLight.SetActive(false);
+        }
+    }
     private void OnMouseEnter()
     {
         mouseOver = true;
+
+        GameObject[] actions = GameObject.FindGameObjectsWithTag("action");
+        actionPrefabScript script;
+        foreach (GameObject action in actions) 
+        {
+            script = action.GetComponent<actionPrefabScript>();
+            if (script.user == gameObject)
+            {
+                script.popUp(true);
+            }
+            else if (script.user != gameObject)
+            {
+                script.popUp(false);
+            }
+        }
     }
     void OnMouseExit() 
     {
         mouseOver = false;
+
+        GameObject[] actions = GameObject.FindGameObjectsWithTag("action");
+        actionPrefabScript script;
+        foreach (GameObject action in actions)
+        {
+            script = action.GetComponent<actionPrefabScript>();
+            script.popUp(false);
+        }
     }
 }
