@@ -25,6 +25,7 @@ public class actionPrefabScript : MonoBehaviour
 
     [SerializeField] Camera mainCam;
     [SerializeField] float slotPlaceDistance;
+    [SerializeField] GameObject diseableObject;
     GameObject[] enemies;
     GameObject[] actionHolders;
     GameObject currentSlot;
@@ -64,6 +65,20 @@ public class actionPrefabScript : MonoBehaviour
                     target = enemy;
                     showTargetIcon();
                 }
+            }
+        }
+        if (user != null)
+        {
+            if (user.GetComponent<HealthScript>().alive == false)
+            {
+                diseableObject.SetActive(true);    
+            }
+        }
+        if (target != null && user.CompareTag("Player") && enemies.Length > 0)
+        {
+            if (target.GetComponent<HealthScript>().alive == false)
+            {
+                target = enemies[Random.Range(0, enemies.Length)];
             }
         }
     }

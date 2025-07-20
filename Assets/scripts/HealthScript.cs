@@ -10,6 +10,7 @@ public class HealthScript : MonoBehaviour
     public float block;
     public int[] speeds;
     public int team; // player - 0, enemy - 1
+    public bool alive = true;
 
     public bool mouseOver = false;
 
@@ -45,6 +46,10 @@ public class HealthScript : MonoBehaviour
         {
             Health = MaxHealth;
         }
+        if (Health <= 0)
+        {
+            die();   
+        }
         updateStats();
     }
     public void changeBlock(float amount) 
@@ -61,6 +66,11 @@ public class HealthScript : MonoBehaviour
         {
             blockText.text = "";
         }
+    }
+    public void die() 
+    {
+        alive = false;
+        gameObject.SetActive(false);
     }
     public void showTargetIcon(bool show) 
     {

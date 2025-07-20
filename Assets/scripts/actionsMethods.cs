@@ -5,8 +5,12 @@ using UnityEngine;
 public class actionsMethods : MonoBehaviour
 {
     [SerializeField] GameObject[] effects;
-    public void doAction(string name, float power, GameObject target) 
+    public void doAction(string name, float power, GameObject target, GameObject user) 
     {
+        if (user.GetComponent<HealthScript>().alive == false || target.GetComponent<HealthScript>().alive == false)
+        {
+            return;
+        }
         switch (name)
         {
             case "strike":
@@ -41,4 +45,7 @@ public class actionsMethods : MonoBehaviour
         target.GetComponent<HealthScript>().changeHealth(power);
         Instantiate(effects[2], target.transform.position, transform.rotation);
     }
+
+
+
 }

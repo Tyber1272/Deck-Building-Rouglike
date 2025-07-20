@@ -22,15 +22,15 @@ public class actionInventory : MonoBehaviour
         Canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (!player)
         {
-            unitActions.Add(new actionsClass.action("strike", 5));
-            unitActions.Add(new actionsClass.action("strike", 5));
-            unitActions.Add(new actionsClass.action("defend", 5));
-            unitActions.Add(new actionsClass.action("heal", 4));
+            unitActions.Add(new actionsClass.action("8==D", 69));
 
             holdersInventory = GameObject.FindGameObjectWithTag("enemiesActionsParent");
         }
         else 
         {
+            unitActions.Add(new actionsClass.action("strike", 5));
+            unitActions.Add(new actionsClass.action("strike", 5));
+            unitActions.Add(new actionsClass.action("strike", 5));
             unitActions.Add(new actionsClass.action("strike", 5));
             unitActions.Add(new actionsClass.action("strike", 5));
             unitActions.Add(new actionsClass.action("defend", 7));
@@ -47,6 +47,10 @@ public class actionInventory : MonoBehaviour
     void startTurn() 
     {
         gameObject.GetComponent<HealthScript>().block = 0; gameObject.GetComponent<HealthScript>().updateStats();
+        if (gameObject.GetComponent<HealthScript>().alive == false)
+        {
+            return;
+        }
         if (player) 
         {
             Inventory.GetComponent<HorizontalLayoutGroup>().enabled = true;

@@ -12,6 +12,7 @@ TagManager:
   - targetIcon
   - action
   - Canvas
+  - enemiesActionsParent
   layers:
   - Default
   - TransparentFX

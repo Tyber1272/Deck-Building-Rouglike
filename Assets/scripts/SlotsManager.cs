@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SlotsManager : MonoBehaviour
 {
     GameObject player;
     GameObject[] enemies;
+    List<GameObject> aliveEnemies = new List<GameObject>();
     List<HealthScript> healthScripts = new List<HealthScript>();
     List<slotClass> slotsList = new List<slotClass>();
     List<GameObject> slotsObjectsList = new List<GameObject>();
     [SerializeField] GameObject slotPrefab;
+    [SerializeField] battleManager BattleManager;
     actionsMethods actionsMethods;
     int actionCount;
     public float coolDownAction;
@@ -19,6 +22,17 @@ public class SlotsManager : MonoBehaviour
         actionsMethods = GameObject.FindGameObjectWithTag("actionsMethods").GetComponent<actionsMethods>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemies = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (var enemy in enemies)
+        {
+            if (enemy.GetComponent<HealthScript>().alive == true)
+            {
+                aliveEnemies.Add(enemy);
+            }
+            else
+            {
+                aliveEnemies.Remove(enemy);
+            }
+        }
         newTurn();
     }
 
@@ -38,13 +52,21 @@ public class SlotsManager : MonoBehaviour
             enemy.GetComponent<actionInventory>().newTurn();
         }
         player.GetComponent<actionInventory>().newTurn();
+        BattleManager.endTurn();
+        if (BattleManager.won)
+        {
+            return;
+        }
         slotsList.Clear();
         slotsObjectsList.Clear();
         foreach (var script in healthScripts)
         {
-            foreach (var order in script.speeds)
+            if (script.alive == true)
             {
-                slotsList.Add(new slotClass(order, script, script.gameObject));
+                foreach (var order in script.speeds)
+                {
+                    slotsList.Add(new slotClass(order, script, script.gameObject));
+                }
             }
         }
 
@@ -77,6 +99,18 @@ public class SlotsManager : MonoBehaviour
     }
     public void doAction() 
     {
+        
+        foreach (var enemy in enemies)
+        {
+            if (enemy.GetComponent<HealthScript>().alive == true)
+            {
+                aliveEnemies.Add(enemy);
+            }
+            else
+            {
+                aliveEnemies.Remove(enemy);
+            }
+        }
         if (actionCount != 0)
         {
             slotsObjectsList[actionCount - 1].GetComponent<SlotScript>().highLightShow(false);
@@ -106,20 +140,21 @@ public class SlotsManager : MonoBehaviour
         SlotScript script = slotsObjectsList[actionCount].GetComponent< SlotScript>();
         if (script.actionHolderScript.heldSlot != null)
         {
+
             actionPrefabScript action = script.actionHolderScript.heldSlot.GetComponent<actionPrefabScript>();
             if (action.target != null)
             {
-                actionsMethods.doAction(action._name, action.power, action.target);
+                actionsMethods.doAction(action._name, action.power, action.target, action.user);
             }
             else
             {
                 if (slotsObjectsList[actionCount].GetComponent<SlotScript>().unitTeam == 0)
                 {
-                    actionsMethods.doAction(action._name, action.power, player);
+                    actionsMethods.doAction(action._name, action.power, player, action.user);
                 }
                 else
                 {
-                    actionsMethods.doAction(action._name, action.power, enemies[Random.Range(0, enemies.Length)]);
+                    actionsMethods.doAction(action._name, action.power, aliveEnemies[Random.Range(0, aliveEnemies.Count)], action.user);
                 }
 
             }
