@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 7842de3bcc1bfc24e93ab06932ca5449, type: 3}
   m_Color: {r: 1, g: 0.435849, b: 0.435849, a: 1}
   m_FlipX: 0
@@ -223,6 +223,7 @@ MonoBehaviour:
   block: 0
   speeds: 04000000
   team: 1
+  alive: 1
   mouseOver: 0
   HPText: {fileID: 4749446222412379621}
   HPImage: {fileID: 2951526044444278069}
