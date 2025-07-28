@@ -35,9 +35,15 @@ public class actionPrefabScript : MonoBehaviour
     SlotsManager slotsManager;
     Vector3 baseSize;
     [SerializeField] Vector3 popUpSize;
+    public bool rewardIcon = false;
 
     private void Start()
     {
+        if (rewardIcon == true)
+        {
+            this.enabled = false;
+        }
+
         baseSize = transform.localScale;
         slotsManager = GameObject.FindGameObjectWithTag("slotManager").GetComponent<SlotsManager>();
         mainCam = Camera.main;
@@ -152,7 +158,7 @@ public class actionPrefabScript : MonoBehaviour
     }
     public void Drag()
     {
-        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess || user.tag == "enemy")
+        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess || user.tag != "Player")
         {
                 return;
         }

@@ -8,9 +8,20 @@ public class battleManager : MonoBehaviour
     List<GameObject> aliveEnemies = new List<GameObject>();
     public bool won = false;
     [SerializeField] GameObject winMenu;
+    [SerializeField] GameObject rewardPrefab, rewardsHolder;
+    [SerializeField] GameObject actionPrefab;
+
+    public List<actionsClass.action> possiblesActionsRewards = new List<actionsClass.action>();
+    public rewardScript selectedReward;
+
     void Start()
     {
-        
+        won = false;
+        winMenu.SetActive(false);
+
+        possiblesActionsRewards.Add(new actionsClass.action("strike", 8));
+        possiblesActionsRewards.Add(new actionsClass.action("defend", 9));
+        possiblesActionsRewards.Add(new actionsClass.action("(:", 666));
     }
 
     // Update is called once per frame
@@ -41,5 +52,21 @@ public class battleManager : MonoBehaviour
     {
         won = true;
         winMenu.SetActive(true);
+
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject currentReward = Instantiate(rewardPrefab, transform.position, transform.rotation, rewardsHolder.transform);
+            rewardScript script = currentReward.GetComponent<rewardScript>();
+
+            script.actionPrefab = actionPrefab;
+
+        }
+    }
+    public void countinue() 
+    {
+        if (selectedReward.stringRewardType == "Action")
+        {
+            //idk;
+        }
     }
 }

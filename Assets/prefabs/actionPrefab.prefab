@@ -258,6 +258,7 @@ MonoBehaviour:
   slotPlaceDistance: 180
   diseableObject: {fileID: 1587265609270398995}
   popUpSize: {x: 0.5, y: 0.5, z: 0}
+  rewardIcon: 0
 --- !u!114 &1554565626689561917
 MonoBehaviour:
   m_ObjectHideFlags: 0

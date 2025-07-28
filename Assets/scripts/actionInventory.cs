@@ -22,7 +22,7 @@ public class actionInventory : MonoBehaviour
         Canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (!player)
         {
-            unitActions.Add(new actionsClass.action("8==D", 69));
+            unitActions.Add(new actionsClass.action("strike", 5));
 
             holdersInventory = GameObject.FindGameObjectWithTag("enemiesActionsParent");
         }
@@ -30,12 +30,9 @@ public class actionInventory : MonoBehaviour
         {
             unitActions.Add(new actionsClass.action("strike", 5));
             unitActions.Add(new actionsClass.action("strike", 5));
-            unitActions.Add(new actionsClass.action("strike", 5));
-            unitActions.Add(new actionsClass.action("strike", 5));
-            unitActions.Add(new actionsClass.action("strike", 5));
             unitActions.Add(new actionsClass.action("defend", 7));
             unitActions.Add(new actionsClass.action("heal", 4));
-            unitActions.Add(new actionsClass.action("8==D", 69));
+
         }
 
     }
