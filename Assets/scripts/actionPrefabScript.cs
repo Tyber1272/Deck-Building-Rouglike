@@ -12,12 +12,15 @@ public class actionPrefabScript : MonoBehaviour
     public Text nameText;
     public Text powerText;
     public Image Image;
+    public GameObject coolDownIcon; public Text coolDownText;
 
     public string _name;
     public float power;
+    public bool coolDownReady = true;
     public GameObject target;
     public GameObject user;
     bool canHaveTarget;
+    public int inventoryOrderCount;
 
 
     [SerializeField] GameObject holderPrefab;
@@ -35,14 +38,9 @@ public class actionPrefabScript : MonoBehaviour
     SlotsManager slotsManager;
     Vector3 baseSize;
     [SerializeField] Vector3 popUpSize;
-    public bool rewardIcon = false;
 
     private void Start()
     {
-        if (rewardIcon == true)
-        {
-            this.enabled = false;
-        }
 
         baseSize = transform.localScale;
         slotsManager = GameObject.FindGameObjectWithTag("slotManager").GetComponent<SlotsManager>();
@@ -88,7 +86,7 @@ public class actionPrefabScript : MonoBehaviour
             }
         }
     }
-    public void setStats(string name, float _power, GameObject slot, GameObject _user) 
+    public void setStats(string name, float _power, GameObject slot, GameObject _user, int coolDown, int inventoryOrder) 
     {
         nameText.text = name;
         powerText.text = _power.ToString();
@@ -98,6 +96,19 @@ public class actionPrefabScript : MonoBehaviour
         
         _name = name;
         power = _power;
+
+        if (coolDown > 0)
+        {
+            diseableObject.SetActive(true);
+            coolDownReady = false;
+            coolDownIcon.SetActive(true);
+            coolDownText.text = coolDown.ToString();
+        }
+        else
+        {
+            coolDownReady = true;
+        }
+        inventoryOrderCount = inventoryOrder;
 
         switch (name)
         {
@@ -158,7 +169,7 @@ public class actionPrefabScript : MonoBehaviour
     }
     public void Drag()
     {
-        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess || user.tag != "Player")
+        if (!Input.GetMouseButton(0) || slotsManager.turnInProcess || user.tag != "Player" || coolDownReady == false)
         {
                 return;
         }

@@ -144,17 +144,17 @@ public class SlotsManager : MonoBehaviour
             actionPrefabScript action = script.actionHolderScript.heldSlot.GetComponent<actionPrefabScript>();
             if (action.target != null)
             {
-                actionsMethods.doAction(action._name, action.power, action.target, action.user);
+                actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, action.target, action.user);
             }
             else
             {
                 if (slotsObjectsList[actionCount].GetComponent<SlotScript>().unitTeam == 0)
                 {
-                    actionsMethods.doAction(action._name, action.power, player, action.user);
+                    actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, player, action.user);
                 }
                 else
                 {
-                    actionsMethods.doAction(action._name, action.power, aliveEnemies[Random.Range(0, aliveEnemies.Count)], action.user);
+                    actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, aliveEnemies[Random.Range(0, aliveEnemies.Count)], action.user);
                 }
 
             }

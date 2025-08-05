@@ -8,11 +8,13 @@ public class actionsClass : MonoBehaviour
     {
         public string name;
         public float power;
-
-        public action(string _name, float _power) 
+        public int coolDown;
+        public int inventoryOrder;
+        public action(string _name, float _power, int _coolDown) 
         {
             name = _name;
             power = _power;
+            coolDown = _coolDown;
         }
     }
 }

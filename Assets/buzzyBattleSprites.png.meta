@@ -130,6 +130,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: clockIcon
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 519
+        width: 58
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd377972f9738d64da2c8516c0cd7cec
+      internalID: 1496307525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -142,6 +163,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       celownik: -970247729
+      clockIcon: 1496307525
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

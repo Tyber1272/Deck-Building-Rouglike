@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class battleManager : MonoBehaviour
 {
@@ -14,14 +15,18 @@ public class battleManager : MonoBehaviour
     public List<actionsClass.action> possiblesActionsRewards = new List<actionsClass.action>();
     public rewardScript selectedReward;
 
+    GameObject player;
+
     void Start()
     {
         won = false;
         winMenu.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
 
-        possiblesActionsRewards.Add(new actionsClass.action("strike", 8));
-        possiblesActionsRewards.Add(new actionsClass.action("defend", 9));
-        possiblesActionsRewards.Add(new actionsClass.action("(:", 666));
+        possiblesActionsRewards.Add(new actionsClass.action("strike", 8, 0));
+        possiblesActionsRewards.Add(new actionsClass.action("defend", 9, 2));
+        possiblesActionsRewards.Add(new actionsClass.action("(:", 666, 0));
+
     }
 
     // Update is called once per frame
@@ -29,7 +34,12 @@ public class battleManager : MonoBehaviour
     {
         
     }
-
+    public void nextBattle() 
+    {
+        player.GetComponent<actionInventory>().addAction(selectedReward.actionReward);
+        SceneManager.LoadScene(0);
+        player.GetComponent<actionInventory>().newBattle();
+    }
     public void endTurn() 
     {
         enemies.Clear();
@@ -62,11 +72,5 @@ public class battleManager : MonoBehaviour
 
         }
     }
-    public void countinue() 
-    {
-        if (selectedReward.stringRewardType == "Action")
-        {
-            //idk;
-        }
-    }
+    
 }

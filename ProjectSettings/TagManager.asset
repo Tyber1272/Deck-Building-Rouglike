@@ -13,6 +13,9 @@ TagManager:
   - action
   - Canvas
   - enemiesActionsParent
+  - battleManager
+  - inventory
+  - slotInventory
   layers:
   - Default
   - TransparentFX

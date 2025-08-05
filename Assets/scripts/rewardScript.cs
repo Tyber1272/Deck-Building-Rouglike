@@ -17,13 +17,13 @@ public class rewardScript : MonoBehaviour
     public rewardTypes rewardType; public string stringRewardType;
 
     public GameObject actionPrefab;
-    actionsClass.action actionReward;
+    public actionsClass.action actionReward;
     battleManager battleMagaer;
 
-    [SerializeField] Text nameText, powerText;
+    [SerializeField] Text nameText, powerText, cooldownText;
     [SerializeField] Image imageIcon;
+    [SerializeField] GameObject selectObject;
 
-    
     void Start()
     {
         battleMagaer = GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>();
@@ -32,9 +32,9 @@ public class rewardScript : MonoBehaviour
         if (rewardType == rewardTypes.Action)
         {
             actionReward = battleMagaer.possiblesActionsRewards[Random.Range(0, battleMagaer.possiblesActionsRewards.Count)];
-            print(actionReward.name);
             nameText.text = actionReward.name; 
             powerText.text = actionReward.power.ToString();
+            cooldownText.text = actionReward.coolDown.ToString();
             switch (actionReward.name)
             {
                 case "strike":
@@ -50,13 +50,20 @@ public class rewardScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (battleMagaer.selectedReward == this)
+        {
+            selectObject.SetActive(true);
+        }
+        else
+        {
+            selectObject.SetActive(false);
+        }
     }
 
-    private void OnMouseDown()
+    public void select()
     {
         battleMagaer.selectedReward = this;
     }

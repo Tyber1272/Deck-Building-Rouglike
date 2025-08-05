@@ -5,12 +5,15 @@ using UnityEngine;
 public class actionsMethods : MonoBehaviour
 {
     [SerializeField] GameObject[] effects;
-    public void doAction(string name, float power, GameObject target, GameObject user) 
+    public void doAction(string name, float power,int order, GameObject target, GameObject user) 
     {
         if (user.GetComponent<HealthScript>().alive == false || target.GetComponent<HealthScript>().alive == false)
         {
             return;
         }
+
+        user.GetComponent<actionInventory>().actionUsed(order);
+
         switch (name)
         {
             case "strike":
