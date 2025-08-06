@@ -18,6 +18,10 @@ public class HealthScript : MonoBehaviour
     [SerializeField] Image HPImage;
     [SerializeField] Text blockText;
     [SerializeField] GameObject targetIcon; [SerializeField] GameObject highLight;
+
+    [SerializeField] Animator anim;
+    [SerializeField] Transform shotPoint;
+    [SerializeField] GameObject[] shotTrailsEffects; // 0-attack, 1-block, 2-heal
     void Start()
     {
         updateStats();
@@ -28,7 +32,25 @@ public class HealthScript : MonoBehaviour
     {
         
     }
-
+    public void triggerAnimation(string name, int shotTrail, Transform shotTarget) 
+    {
+        if (anim == null)
+            return;
+        anim.SetTrigger(name);
+        if (shotTrailsEffects.Length >= shotTrail && shotTarget != null)
+        {
+            GameObject a = Instantiate(shotTrailsEffects[shotTrail]);
+            a.GetComponent<LineRenderer>().SetPosition(0, shotPoint.position);
+            a.GetComponent<LineRenderer>().SetPosition(1, shotTarget.position);
+        }
+        
+    }
+    public void boolAnimation(string name, bool boolean)
+    {
+        if (anim == null)
+            return;
+        anim.SetBool(name, boolean);
+    }
     public void getDamage(float amount) 
     {
         block = block - amount;
@@ -37,6 +59,7 @@ public class HealthScript : MonoBehaviour
             changeHealth(block);
             block = 0;
         }
+        triggerAnimation("hit", 69, null);
         updateStats();
     }
     public void changeHealth(float amount) 

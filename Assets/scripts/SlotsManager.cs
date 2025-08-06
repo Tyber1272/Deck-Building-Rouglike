@@ -99,7 +99,7 @@ public class SlotsManager : MonoBehaviour
     }
     public void doAction() 
     {
-        
+        player.GetComponent<HealthScript>().boolAnimation("aim", true);
         foreach (var enemy in enemies)
         {
             if (enemy.GetComponent<HealthScript>().alive == true)

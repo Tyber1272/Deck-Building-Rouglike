@@ -65,7 +65,7 @@ public class actionInventory : MonoBehaviour
     }
     public void newBattle() 
     {
-        Inventory = GameObject.FindGameObjectWithTag("inventory");
+        gameObject.GetComponent<HealthScript>().boolAnimation("aim", false);
     }
     public void newTurn() 
     {

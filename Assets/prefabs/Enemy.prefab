@@ -230,6 +230,7 @@ MonoBehaviour:
   blockText: {fileID: 613208365598627004}
   targetIcon: {fileID: 8302666496640438451}
   highLight: {fileID: 4742714574042200451}
+  anim: {fileID: 0}
 --- !u!114 &-3680643703699932710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +474,10 @@ PrefabInstance:
     - target: {fileID: 5974001348333871000, guid: 68c1c6857d0a9054984b4698e4685b00, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588499177297176704, guid: 68c1c6857d0a9054984b4698e4685b00, type: 3}
+      propertyPath: m_SortingOrder
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

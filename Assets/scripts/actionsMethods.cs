@@ -17,36 +17,39 @@ public class actionsMethods : MonoBehaviour
         switch (name)
         {
             case "strike":
-                strike(power, target);
+                strike(power, target, user);
                 break;
             case "defend":
-                defend(power, target);
+                defend(power, target, user);
                 break;
             case "heal":
-                heal(power, target);
+                heal(power, target, user);
                 break;
         }
     }
 
-    void strike(float power, GameObject target) 
+    void strike(float power, GameObject target, GameObject user) 
     {
         print("attack");
         target.GetComponent<HealthScript>().getDamage(power);
         Instantiate(effects[0], target.transform.position, transform.rotation);
+        user.GetComponent<HealthScript>().triggerAnimation("shot", 0, target.transform);
     }
 
-    void defend(float power, GameObject target)
+    void defend(float power, GameObject target, GameObject user)
     {
         print("block");
         target.GetComponent<HealthScript>().changeBlock(power);
         Instantiate(effects[1], target.transform.position, transform.rotation);
+        user.GetComponent<HealthScript>().triggerAnimation("shotUp", 1, target.transform);
     }
 
-    void heal(float power, GameObject target) 
+    void heal(float power, GameObject target, GameObject user) 
     {
         print("heal");
         target.GetComponent<HealthScript>().changeHealth(power);
         Instantiate(effects[2], target.transform.position, transform.rotation);
+        user.GetComponent<HealthScript>().triggerAnimation("shotUp", 2, target.transform);
     }
 
 
