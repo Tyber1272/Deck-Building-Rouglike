@@ -34,10 +34,9 @@ public class actionInventory : MonoBehaviour
         else 
         {
             unitActions.Add(new actionsClass.action("strike", 5, 0));
-            unitActions.Add(new actionsClass.action("strike", 5, 0));
             unitActions.Add(new actionsClass.action("defend", 7, 0));
-            unitActions.Add(new actionsClass.action("heal", 4, 2));
-
+            unitActions.Add(new actionsClass.action("poison", 6, 0));
+            unitActions.Add(new actionsClass.action("poison", 10, 0));
         }
         foreach (var actions in unitActions)
         {
@@ -74,6 +73,7 @@ public class actionInventory : MonoBehaviour
     void startTurn() 
     {
         gameObject.GetComponent<HealthScript>().block = 0; gameObject.GetComponent<HealthScript>().updateStats();
+        gameObject.GetComponent<HealthScript>().newTurn();
         if (gameObject.GetComponent<HealthScript>().alive == false)
         {
             return;

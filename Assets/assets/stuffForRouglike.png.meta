@@ -550,6 +550,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: swing
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 828
+        width: 36
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c2f6b8e144c4f4bbd97bcbd96a57cb
+      internalID: 872359757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shield
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 881
+        width: 70
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62d2578cdb8185c4896dd2d8307b7ff3
+      internalID: 163777248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heart
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 900
+        width: 82
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5b5f1b7d4d3ca4e8c39f13e1c26bf4
+      internalID: 1653101780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blockIcon
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 842
+        width: 43
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad9fe75d7e2c71f488b7730f571b213a
+      internalID: 2109741008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healthIcon
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 846
+        width: 52
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de17000e9662fea48a3ce2f40dffa225
+      internalID: 2113979384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -563,6 +668,7 @@ TextureImporter:
     nameFileIdTable:
       arm1: 641674926
       arm2: 817177426
+      blockIcon: 2109741008
       eyes1: -1934570820
       eyes2: -272191243
       eyes3: -1467139027
@@ -577,11 +683,14 @@ TextureImporter:
       hand2: 25788962
       hat: -1661371442
       head: -1927091329
+      healthIcon: 2113979384
+      heart: 1653101780
       leg1: -430230713
       leg2: 1770186187
       neck: -1360621659
       scarf1: -299703513
       scarf2: 581578549
+      shield: 163777248
       shoe: -1813489248
       stuffForRouglike_11: 2005486726
       stuffForRouglike_14: 246214028
@@ -591,6 +700,7 @@ TextureImporter:
       stuffForRouglike_5: -1433407637
       stuffForRouglike_6: 1254912334
       stuffForRouglike_9: -251977803
+      swing: 872359757
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

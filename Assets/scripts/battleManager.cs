@@ -42,6 +42,11 @@ public class battleManager : MonoBehaviour
     }
     public void endTurn() 
     {
+        Invoke("delayedEndTurn", 0.1f);
+    }
+    void delayedEndTurn() 
+    {
+        print("battleManager");
         enemies.Clear();
         aliveEnemies.Clear();
         foreach (var enemy in GameObject.FindGameObjectsWithTag("enemy"))
@@ -57,7 +62,6 @@ public class battleManager : MonoBehaviour
             win();
         }
     }
-
     void win() 
     {
         won = true;

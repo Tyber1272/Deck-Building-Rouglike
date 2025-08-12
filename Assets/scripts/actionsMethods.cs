@@ -5,53 +5,67 @@ using UnityEngine;
 public class actionsMethods : MonoBehaviour
 {
     [SerializeField] GameObject[] effects;
-    public void doAction(string name, float power,int order, GameObject target, GameObject user) 
+    string Name; float power; int order; GameObject target; GameObject user;
+    buffsClass buffsClassScript;
+    private void Start()
     {
-        if (user.GetComponent<HealthScript>().alive == false || target.GetComponent<HealthScript>().alive == false)
+        buffsClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
+    }
+    public void doAction(string name_, float power_, int order_, GameObject target_, GameObject user_) 
+    {
+        if (user_.GetComponent<HealthScript>().alive == false || target_.GetComponent<HealthScript>().alive == false)
         {
             return;
         }
-
+        Name = name_; power = power_; order = order_; target = target_; user = user_;
         user.GetComponent<actionInventory>().actionUsed(order);
-
-        switch (name)
+        switch (Name)
         {
             case "strike":
-                strike(power, target, user);
+                strike();
                 break;
             case "defend":
-                defend(power, target, user);
+                defend();
                 break;
             case "heal":
-                heal(power, target, user);
+                heal();
+                break;
+            case "poison":
+                poison();
                 break;
         }
     }
 
-    void strike(float power, GameObject target, GameObject user) 
+    void strike()
     {
         print("attack");
         target.GetComponent<HealthScript>().getDamage(power);
         Instantiate(effects[0], target.transform.position, transform.rotation);
-        user.GetComponent<HealthScript>().triggerAnimation("shot", 0, target.transform);
+        user.GetComponent<HealthScript>().triggerAnimation("shot", target.transform);
     }
 
-    void defend(float power, GameObject target, GameObject user)
+    void defend()
     {
         print("block");
         target.GetComponent<HealthScript>().changeBlock(power);
         Instantiate(effects[1], target.transform.position, transform.rotation);
-        user.GetComponent<HealthScript>().triggerAnimation("shotUp", 1, target.transform);
+        user.GetComponent<HealthScript>().triggerAnimation("shotUp", target.transform);
     }
 
-    void heal(float power, GameObject target, GameObject user) 
+    void heal() 
     {
         print("heal");
         target.GetComponent<HealthScript>().changeHealth(power);
         Instantiate(effects[2], target.transform.position, transform.rotation);
-        user.GetComponent<HealthScript>().triggerAnimation("shotUp", 2, target.transform);
+        user.GetComponent<HealthScript>().triggerAnimation("shotUp", target.transform);
     }
 
-
+    void poison()
+    {
+        print("poison");
+        target.GetComponent<HealthScript>().addBuff(buffsClassScript.poison, power, (int)power);
+        Instantiate(effects[3], target.transform.position, transform.rotation);
+        user.GetComponent<HealthScript>().triggerAnimation("shot", target.transform);
+    }
 
 }

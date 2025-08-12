@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,20 +12,32 @@ public class HealthScript : MonoBehaviour
     public int[] speeds;
     public int team; // player - 0, enemy - 1
     public bool alive = true;
+    public List<buffsClass.buff> unitBuffs = new List<buffsClass.buff>();
 
     public bool mouseOver = false;
 
     [SerializeField] Text HPText;
     [SerializeField] Image HPImage;
-    [SerializeField] Text blockText;
+    [SerializeField] Text blockText; [SerializeField] GameObject blockIcon;
     [SerializeField] GameObject targetIcon; [SerializeField] GameObject highLight;
+    [SerializeField] GameObject buffPrefab; [SerializeField] Transform buffsHolder;
+    public List<GameObject> buffsPrefabsList = new List<GameObject>(); [SerializeField] buffsClass buffClassScript;
 
     [SerializeField] Animator anim;
     [SerializeField] Transform shotPoint;
-    [SerializeField] GameObject[] shotTrailsEffects; // 0-attack, 1-block, 2-heal
     void Start()
     {
+        unitBuffs.Clear();
+        buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
         updateStats();
+        if (team == 0)
+        {
+            addBuff(buffClassScript.poison, 3, 3);
+        }
+        else
+        {
+            
+        }
     }
 
     // Update is called once per frame
@@ -32,17 +45,23 @@ public class HealthScript : MonoBehaviour
     {
         
     }
-    public void triggerAnimation(string name, int shotTrail, Transform shotTarget) 
+    public void newBattle() 
+    {
+        buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
+        gameObject.GetComponent<GameManager>().newBattle();
+    }
+    public void newTurn() 
+    {
+        if (unitBuffs.Count != 0)
+        {
+            buffClassScript.newTurnForUnit(gameObject, this);
+        }
+    }
+    public void triggerAnimation(string name, Transform shotTarget) 
     {
         if (anim == null)
             return;
         anim.SetTrigger(name);
-        if (shotTrailsEffects.Length >= shotTrail && shotTarget != null)
-        {
-            GameObject a = Instantiate(shotTrailsEffects[shotTrail]);
-            a.GetComponent<LineRenderer>().SetPosition(0, shotPoint.position);
-            a.GetComponent<LineRenderer>().SetPosition(1, shotTarget.position);
-        }
         
     }
     public void boolAnimation(string name, bool boolean)
@@ -59,7 +78,7 @@ public class HealthScript : MonoBehaviour
             changeHealth(block);
             block = 0;
         }
-        triggerAnimation("hit", 69, null);
+        triggerAnimation("hit", null);
         updateStats();
     }
     public void changeHealth(float amount) 
@@ -88,10 +107,65 @@ public class HealthScript : MonoBehaviour
         if (block <= 0)
         {
             blockText.text = "";
+            blockIcon.SetActive(false);
+        }
+        else
+        {
+            blockIcon.SetActive(true);
+        }
+    }
+    public void addBuff(buffsClass.existingBuffs buffType, float stack, int turnsLeft) 
+    {
+        bool newBuff = true;
+        int count = 0;
+        foreach (var buff in unitBuffs)
+        {
+            if (buff.buffType.stackable == true)
+            {
+                buff.stack = buff.stack + stack;
+                newBuff = false;
+                buffsPrefabsList[count].GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack);
+            }
+            count++;
+        }
+        if (newBuff == true)
+        {
+            print("kutas");
+            unitBuffs.Add(new buffsClass.buff(buffType, buffType.name, stack, turnsLeft));
+            updateBuff(unitBuffs.Count - 1, true);
+        }
+    }
+
+    int indexForDelayBuff; // basicly zmienna po to tutaj na dole
+    public void removeBuff(int indexOrder) 
+    {
+        indexForDelayBuff = indexOrder;
+        Invoke("delayedRemoveBuff", 0.01f); // ma≥e opuünienie aby for each loop nie büikowa≥ w buffClass.
+    }
+    void delayedRemoveBuff() 
+    {
+        updateBuff(indexForDelayBuff, false);
+        unitBuffs.Remove(unitBuffs[indexForDelayBuff]);
+    }
+
+    public void updateBuff(int indexOrder, bool add) 
+    {
+        buffsClass.buff buff = unitBuffs[indexOrder];
+        if (add == true)
+        {
+            GameObject currectBuff = Instantiate(buffPrefab, transform.position, transform.rotation, buffsHolder);
+            currectBuff.GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack);
+            buffsPrefabsList.Add(currectBuff);
+        }
+        else
+        {
+            Destroy(buffsPrefabsList[indexOrder]);
+            buffsPrefabsList.Remove(buffsPrefabsList[indexOrder]);
         }
     }
     public void die() 
     {
+        print("unit die");
         alive = false;
         gameObject.SetActive(false);
     }

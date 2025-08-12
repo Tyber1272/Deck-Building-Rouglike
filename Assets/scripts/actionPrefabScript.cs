@@ -124,6 +124,10 @@ public class actionPrefabScript : MonoBehaviour
                 Image.color = Color.green;
                 canHaveTarget = false;
                 break;
+            case "poison":
+                Image.color = Color.cyan;
+                canHaveTarget = true;
+                break;
         }  
         
         
