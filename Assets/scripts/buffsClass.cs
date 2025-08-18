@@ -9,14 +9,16 @@ public class buffsClass : MonoBehaviour
         public string name;
         public bool debuff;
         public bool stackable;
-        public existingBuffs(string _name, bool debuff_, bool stackable)
+        public string description;
+        public existingBuffs(string _name, bool debuff_, bool stackable, string description_)
         {
             name = _name;
             debuff = debuff_;
             this.stackable = stackable;
+            description = description_;
         }
     }
-    public existingBuffs poison = new existingBuffs("poison", true, true);
+    public existingBuffs poison = new existingBuffs("poison", true, true, "Deals to the user its stack and deacreas it by 1 every turn");
 
     public class buff
     {
@@ -53,7 +55,7 @@ public class buffsClass : MonoBehaviour
             }
             else
             {
-                healthScript.buffsPrefabsList[healthScript.unitBuffs.IndexOf(buff)].GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack);
+                healthScript.buffsPrefabsList[healthScript.unitBuffs.IndexOf(buff)].GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack, healthScript.team == 0, buff.buffType, buff.turnsLeft);
             }
         }
     }

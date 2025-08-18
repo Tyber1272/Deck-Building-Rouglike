@@ -559,7 +559,7 @@ TextureImporter:
         width: 36
         height: 170
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -580,7 +580,7 @@ TextureImporter:
         width: 70
         height: 102
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -601,7 +601,7 @@ TextureImporter:
         width: 82
         height: 81
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -622,7 +622,7 @@ TextureImporter:
         width: 43
         height: 53
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -643,7 +643,7 @@ TextureImporter:
         width: 52
         height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -651,6 +651,258 @@ TextureImporter:
       bones: []
       spriteID: de17000e9662fea48a3ce2f40dffa225
       internalID: 2113979384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buffIcon
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 539
+        width: 101
+        height: 46
+      alignment: 9
+      pivot: {x: 0.9297437, y: 0.50497836}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ccd5c003780bde4a9917d7c69562fdb
+      internalID: -1903198863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poisonIcon
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 499
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 714d268cf8b239b41bc34ace44c82426
+      internalID: -634752027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 586
+        width: 94
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc34a794534f844c9c19f9594eabc0a
+      internalID: 364450983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strike
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 467
+        width: 60
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 065fcc1291c4f6947a37be71c71a13f1
+      internalID: -717447962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: defend
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 385
+        width: 58
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 660f0907bba452240a57546aee7cb499
+      internalID: -1599148141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heal
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 309
+        width: 55
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ecad36edf8588843867716203245756
+      internalID: 21400890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: poison
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 251
+        width: 57
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3da895e7214d11f4d94b6c837f20d6bf
+      internalID: -1506683333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletSlot
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 80
+        width: 126
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df85456c2ee7cf740a6a22b6a86e649a
+      internalID: -118937895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: holder
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 581
+        width: 89
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d24e9c213b278419de5e7a0797cace
+      internalID: 563552156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: belt
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 705
+        width: 358
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d78fb953e43a3234b986149eca75f242
+      internalID: 1580344156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timeline
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21
+        width: 380
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7f33c3f882316346b7f87a1b1d1c637
+      internalID: -848101573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: startButton
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 109
+        width: 150
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc57c57ed5fcf09468df0be3081a8480
+      internalID: 667156922
       vertices: []
       indices: 
       edges: []
@@ -666,9 +918,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BulletSlot: -118937895
       arm1: 641674926
       arm2: 817177426
+      belt: 1580344156
       blockIcon: 2109741008
+      buffIcon: -1903198863
+      bullet: 364450983
+      defend: -1599148141
       eyes1: -1934570820
       eyes2: -272191243
       eyes3: -1467139027
@@ -683,15 +940,21 @@ TextureImporter:
       hand2: 25788962
       hat: -1661371442
       head: -1927091329
+      heal: 21400890
       healthIcon: 2113979384
       heart: 1653101780
+      holder: 563552156
       leg1: -430230713
       leg2: 1770186187
       neck: -1360621659
+      poison: -1506683333
+      poisonIcon: -634752027
       scarf1: -299703513
       scarf2: 581578549
       shield: 163777248
       shoe: -1813489248
+      startButton: 667156922
+      strike: -717447962
       stuffForRouglike_11: 2005486726
       stuffForRouglike_14: 246214028
       stuffForRouglike_17: -685163472
@@ -701,6 +964,7 @@ TextureImporter:
       stuffForRouglike_6: 1254912334
       stuffForRouglike_9: -251977803
       swing: 872359757
+      timeline: -848101573
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

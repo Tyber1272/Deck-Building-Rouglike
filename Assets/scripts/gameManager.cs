@@ -23,8 +23,13 @@ public class GameManager : MonoBehaviour
     }
     public void newBattle() 
     {
+        Invoke("delayedNewBattle", 0.02f);
+    }
+    void delayedNewBattle() 
+    {
+        print(encounterCount);
         encounterText = GameObject.FindWithTag("encounterText").GetComponent<Text>();
-        encounterCount++;
+        encounterCount = encounterCount + 1;
         encounterText.text = "Encounter: " + encounterCount;
     }
 }

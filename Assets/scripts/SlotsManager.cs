@@ -7,6 +7,7 @@ public class SlotsManager : MonoBehaviour
 {
     GameObject player;
     GameObject[] enemies;
+    [SerializeField] Transform groupLayout;
     List<GameObject> aliveEnemies = new List<GameObject>();
     List<HealthScript> healthScripts = new List<HealthScript>();
     List<slotClass> slotsList = new List<slotClass>();
@@ -34,6 +35,32 @@ public class SlotsManager : MonoBehaviour
             }
         }
         newTurn();
+
+        slotsList.Clear();
+        slotsObjectsList.Clear();
+        foreach (var script in healthScripts)
+        {
+            if (script.alive == true)
+            {
+                foreach (var order in script.speeds)
+                {
+                    slotsList.Add(new slotClass(order, script, script.gameObject));
+                }
+            }
+        }
+        slotsList.Sort((left, right) => right.speedOrder.CompareTo(left.speedOrder));
+        foreach (var slot in slotsList)
+        {
+            GameObject currentSlot = Instantiate(slotPrefab, transform.position, transform.rotation, groupLayout.transform);
+            SlotScript slotScript = currentSlot.GetComponent<SlotScript>();
+            slotsObjectsList.Add(currentSlot);
+            slotScript.speed = slot.speedOrder;
+            slotScript.unitTeam = slot.healthScript.team;
+            if (slotScript.unitTeam == 1)
+            {
+                slotScript.user = slot.user;
+            }
+        }
     }
 
     void Update()
@@ -57,34 +84,7 @@ public class SlotsManager : MonoBehaviour
         {
             return;
         }
-        slotsList.Clear();
-        slotsObjectsList.Clear();
-        foreach (var script in healthScripts)
-        {
-            if (script.alive == true)
-            {
-                foreach (var order in script.speeds)
-                {
-                    slotsList.Add(new slotClass(order, script, script.gameObject));
-                }
-            }
-        }
-
-        slotsList.Sort((left, right) => right.speedOrder.CompareTo(left.speedOrder));
-
-
-        foreach (var slot in slotsList)
-        {
-            GameObject currentSlot = Instantiate(slotPrefab, transform.position, transform.rotation, gameObject.transform);
-            SlotScript slotScript = currentSlot.GetComponent<SlotScript>();
-            slotsObjectsList.Add(currentSlot);
-            slotScript.speed = slot.speedOrder;
-            slotScript.unitTeam = slot.healthScript.team;
-            if (slotScript.unitTeam == 1)
-            {
-                slotScript.user = slot.user;
-            }
-        }
+        
     }
 
     public void startTurn() 
@@ -105,6 +105,7 @@ public class SlotsManager : MonoBehaviour
             if (enemy.GetComponent<HealthScript>().alive == true)
             {
                 aliveEnemies.Add(enemy);
+                enemy.GetComponent<HealthScript>().boolAnimation("aim", true);
             }
             else
             {
@@ -115,32 +116,32 @@ public class SlotsManager : MonoBehaviour
         {
             slotsObjectsList[actionCount - 1].GetComponent<SlotScript>().highLightShow(false);
         }
-        if (slotsObjectsList.Count <= actionCount)
+        if (slotsObjectsList.Count <= actionCount) // skoñczenie rundy
         {
             turnInProcess = false;
-            foreach (var slot in slotsObjectsList)
-            {
-                Destroy(slot);
-            }
+            //foreach (var slot in slotsObjectsList)
+            //{
+            //    Destroy(slot);
+            //}
             GameObject[] actions = GameObject.FindGameObjectsWithTag("action");
             foreach (var action in actions) 
             {
                 Destroy(action);
             }
             GameObject[] holders = GameObject.FindGameObjectsWithTag("actionHolder");
-            foreach (var holder in holders)
-            {
-                Destroy(holder);
-            }
+            //foreach (var holder in holders)
+            //{
+            //    Destroy(holder);
+            //}
             newTurn();
 
             return; 
         }
+
         slotsObjectsList[actionCount].GetComponent<SlotScript>().highLightShow(true);
         SlotScript script = slotsObjectsList[actionCount].GetComponent< SlotScript>();
         if (script.actionHolderScript.heldSlot != null)
         {
-
             actionPrefabScript action = script.actionHolderScript.heldSlot.GetComponent<actionPrefabScript>();
             if (action.target != null)
             {
