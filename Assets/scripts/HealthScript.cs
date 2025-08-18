@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +11,6 @@ public class HealthScript : MonoBehaviour
     public float block;
     public int[] speeds;
     public int team; // player - 0, enemy - 1
-    bool Player;
     public bool alive = true;
     public List<buffsClass.buff> unitBuffs = new List<buffsClass.buff>();
 
@@ -29,13 +27,17 @@ public class HealthScript : MonoBehaviour
     [SerializeField] Transform shotPoint;
     void Start()
     {
-        Player = team == 0;
-        //print(Player);
         unitBuffs.Clear();
         buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
         updateStats();
-
-        
+        if (team == 0)
+        {
+            addBuff(buffClassScript.poison, 3, 3);
+        }
+        else
+        {
+            
+        }
     }
 
     // Update is called once per frame
@@ -45,7 +47,6 @@ public class HealthScript : MonoBehaviour
     }
     public void newBattle() 
     {
-        boolAnimation("aim", false);
         buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
         gameObject.GetComponent<GameManager>().newBattle();
     }
@@ -55,20 +56,18 @@ public class HealthScript : MonoBehaviour
         {
             buffClassScript.newTurnForUnit(gameObject, this);
         }
-        boolAnimation("aim", false);
     }
     public void triggerAnimation(string name, Transform shotTarget) 
     {
-        print(name);
         if (anim == null)
-        { return; }
+            return;
         anim.SetTrigger(name);
         
     }
     public void boolAnimation(string name, bool boolean)
     {
         if (anim == null)
-        { return; }
+            return;
         anim.SetBool(name, boolean);
     }
     public void getDamage(float amount) 
@@ -125,12 +124,13 @@ public class HealthScript : MonoBehaviour
             {
                 buff.stack = buff.stack + stack;
                 newBuff = false;
-                buffsPrefabsList[count].GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack, team == 0, buff.buffType, buff.turnsLeft);
+                buffsPrefabsList[count].GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack);
             }
             count++;
         }
         if (newBuff == true)
         {
+            print("kutas");
             unitBuffs.Add(new buffsClass.buff(buffType, buffType.name, stack, turnsLeft));
             updateBuff(unitBuffs.Count - 1, true);
         }
@@ -154,7 +154,7 @@ public class HealthScript : MonoBehaviour
         if (add == true)
         {
             GameObject currectBuff = Instantiate(buffPrefab, transform.position, transform.rotation, buffsHolder);
-            currectBuff.GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack, team == 0, buff.buffType, buff.turnsLeft);
+            currectBuff.GetComponent<buffPrefabScript>().setStats(buff.name, buff.stack);
             buffsPrefabsList.Add(currectBuff);
         }
         else
@@ -165,12 +165,8 @@ public class HealthScript : MonoBehaviour
     }
     public void die() 
     {
+        print("unit die");
         alive = false;
-        boolAnimation("die", true);
-        Invoke("setActiveOnFalse", 1f);
-    }
-    void setActiveOnFalse() 
-    {
         gameObject.SetActive(false);
     }
     public void showTargetIcon(bool show) 
