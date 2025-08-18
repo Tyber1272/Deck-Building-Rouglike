@@ -26,17 +26,24 @@ public class actionInventory : MonoBehaviour
         Canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (!player)
         {
-            unitActions.Add(new actionsClass.action("strike", 1, 0));
-            unitActions.Add(new actionsClass.action("defend", 2, 1));
-            unitActions.Add(new actionsClass.action("heal", 3, 2));
+            unitActions.Add(new actionsClass.action("strike", 5, 0));
+            unitActions.Add(new actionsClass.action("strike", 5, 0));
+            unitActions.Add(new actionsClass.action("defend", 2, 0));
             holdersInventory = GameObject.FindGameObjectWithTag("enemiesActionsParent");
         }
         else 
         {
-            unitActions.Add(new actionsClass.action("strike", 5, 0));
-            unitActions.Add(new actionsClass.action("defend", 7, 0));
-            unitActions.Add(new actionsClass.action("poison", 6, 0));
-            unitActions.Add(new actionsClass.action("poison", 10, 0));
+            unitActions.Add(new actionsClass.action("strike", 10, 0));
+            unitActions.Add(new actionsClass.action("strike", 10, 0));
+            unitActions.Add(new actionsClass.action("defend", 5, 0));
+            unitActions.Add(new actionsClass.action("heal", 3, 0));
+            unitActions.Add(new actionsClass.action("poison", 10, 2));
+
+            holders.Clear();
+            foreach (var action in unitActions)
+            {
+                holders.Add(Instantiate(holderPrefab, transform.position, transform.rotation, holdersInventory.transform));
+            }
         }
         foreach (var actions in unitActions)
         {
@@ -64,11 +71,12 @@ public class actionInventory : MonoBehaviour
     }
     public void newBattle() 
     {
-        gameObject.GetComponent<HealthScript>().boolAnimation("aim", false);
+        gameObject.GetComponent<HealthScript>().newBattle();
     }
+   
     public void newTurn() 
     {
-        Invoke("startTurn", 0.1f);
+        Invoke("startTurn", 0.4f);
     }
     void startTurn() 
     {
@@ -87,11 +95,6 @@ public class actionInventory : MonoBehaviour
             Inventory = GameObject.FindGameObjectWithTag("inventory");
             holdersInventory = GameObject.FindGameObjectWithTag("slotInventory");
             Inventory.GetComponent<HorizontalLayoutGroup>().enabled = true;
-            holders.Clear();
-            foreach (var action in unitActions)
-            {
-                holders.Add(Instantiate(holderPrefab, transform.position, transform.rotation, holdersInventory.transform));
-            }
             int count = 0;
             foreach (var action in unitActions)
             {
@@ -101,7 +104,9 @@ public class actionInventory : MonoBehaviour
                 {
                     cooldownsTimer[count] = cooldownsTimer[count] - 1;
                 }
-                script.setStats(action.name, action.power, holders[count], gameObject, cooldownsTimer[count], count);
+                print(gameObject);
+                print(holders[count]);
+                script.setStats(action.name, action.power, action.coolDown, holders[count], gameObject, cooldownsTimer[count], count);
                 count++;
             }
             Invoke("diseableInventoryLayout", 0.1f);
@@ -128,15 +133,17 @@ public class actionInventory : MonoBehaviour
                     cooldownsTimer[i] = cooldownsTimer[i] - 1;
                 }
             }
+            count = 0;
             foreach (var slot in slots) 
             {
                 SlotScript script = slot.GetComponent<SlotScript>();
-                if (script.user == gameObject && readyUnitActions.Count > 0)
+                if (script.user == gameObject && readyUnitActions.Count > 0 && readyUnitActions.Count != 0)
                 {
-                    actionsClass.action action = readyUnitActions[Random.Range(0, readyUnitActions.Count)]; 
+                    actionsClass.action action = readyUnitActions[Random.Range(0, readyUnitActions.Count)];
+                    readyUnitActions.Remove(action);
                     GameObject currentAction = Instantiate(actionPrefab, slot.transform.position, transform.rotation, holdersInventory.transform);
                     actionPrefabScript script2 = currentAction.GetComponent<actionPrefabScript>();
-                    script2.setStats(action.name, action.power, slot.GetComponent<SlotScript>().actionHolderScript.gameObject, gameObject, cooldownsTimer[count], action.inventoryOrder);
+                    script2.setStats(action.name, action.power, action.coolDown, slot.GetComponent<SlotScript>().actionHolderScript.gameObject, gameObject, cooldownsTimer[count], action.inventoryOrder);
                     count++;
                 }
             }

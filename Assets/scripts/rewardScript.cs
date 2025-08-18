@@ -20,8 +20,10 @@ public class rewardScript : MonoBehaviour
     public actionsClass.action actionReward;
     battleManager battleMagaer;
 
-    [SerializeField] Text nameText, powerText, cooldownText;
-    [SerializeField] Image imageIcon;
+    [SerializeField] Text powerText, cooldownText;
+    [SerializeField] GameObject[] icons;
+    [SerializeField] Image imageBullet;
+    
     [SerializeField] GameObject selectObject;
 
     void Start()
@@ -32,19 +34,29 @@ public class rewardScript : MonoBehaviour
         if (rewardType == rewardTypes.Action)
         {
             actionReward = battleMagaer.possiblesActionsRewards[Random.Range(0, battleMagaer.possiblesActionsRewards.Count)];
-            nameText.text = actionReward.name; 
             powerText.text = actionReward.power.ToString();
             cooldownText.text = actionReward.coolDown.ToString();
+            foreach (var icon in icons) 
+            {
+                icon.SetActive(false);
+            }
             switch (actionReward.name)
             {
                 case "strike":
-                    imageIcon.color = Color.red;
+                    imageBullet.color = actionPrefab.GetComponent<actionPrefabScript>().bulletsColors[0];
+                    icons[0].SetActive(true);
                     break;
                 case "defend":
-                    imageIcon.color = Color.blue;
+                    imageBullet.color = actionPrefab.GetComponent<actionPrefabScript>().bulletsColors[1];
+                    icons[1].SetActive(true);
                     break;
                 case "heal":
-                    imageIcon.color = Color.green;
+                    imageBullet.color = actionPrefab.GetComponent<actionPrefabScript>().bulletsColors[2];
+                    icons[2].SetActive(true);
+                    break;
+                case "poison":
+                    imageBullet.color = actionPrefab.GetComponent<actionPrefabScript>().bulletsColors[3];
+                    icons[3].SetActive(true);
                     break;
             }
         }

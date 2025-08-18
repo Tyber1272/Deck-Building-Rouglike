@@ -18,6 +18,7 @@ TagManager:
   - slotInventory
   - buffsClass
   - encounterText
+  - infoBox
   layers:
   - Default
   - TransparentFX

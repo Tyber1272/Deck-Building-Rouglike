@@ -36,7 +36,8 @@ public class battleManager : MonoBehaviour
     }
     public void nextBattle() 
     {
-        player.GetComponent<actionInventory>().addAction(selectedReward.actionReward);
+        if (selectedReward != null)
+        { player.GetComponent<actionInventory>().addAction(selectedReward.actionReward); }
         SceneManager.LoadScene(0);
         player.GetComponent<actionInventory>().newBattle();
     }
@@ -46,7 +47,6 @@ public class battleManager : MonoBehaviour
     }
     void delayedEndTurn() 
     {
-        print("battleManager");
         enemies.Clear();
         aliveEnemies.Clear();
         foreach (var enemy in GameObject.FindGameObjectsWithTag("enemy"))

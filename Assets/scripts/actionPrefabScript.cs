@@ -9,24 +9,29 @@ using UnityEditor.Build;
 
 public class actionPrefabScript : MonoBehaviour
 {
-    public Text nameText;
+    public Image icon;
     public Text powerText;
     public Image Image;
     public GameObject coolDownIcon; public Text coolDownText;
+    [SerializeField] GameObject[] iconsList;
+    public Color[] bulletsColors;
 
     public string _name;
     public float power;
+    int maxCooldown;
+    string description;
     public bool coolDownReady = true;
     public GameObject target;
     public GameObject user;
     bool canHaveTarget;
     public int inventoryOrderCount;
 
-
+    
     [SerializeField] GameObject holderPrefab;
     //[SerializeField] GameObject Canvas;
 
     [SerializeField] Camera mainCam;
+    infoBoxScript infoBox;
     [SerializeField] float slotPlaceDistance;
     [SerializeField] GameObject diseableObject;
     GameObject[] enemies;
@@ -39,10 +44,12 @@ public class actionPrefabScript : MonoBehaviour
     Vector3 baseSize;
     [SerializeField] Vector3 popUpSize;
 
+    Animator anim;
     private void Start()
     {
-
+        anim = GetComponent<Animator>();
         baseSize = transform.localScale;
+        infoBox = GameObject.FindGameObjectWithTag("infoBox").GetComponent<infoBoxScript>();
         slotsManager = GameObject.FindGameObjectWithTag("slotManager").GetComponent<SlotsManager>();
         mainCam = Camera.main;
         actionHolders = GameObject.FindGameObjectsWithTag("actionHolder");
@@ -71,11 +78,15 @@ public class actionPrefabScript : MonoBehaviour
                 }
             }
         }
+        else if (currentSlot != null)
+        {
+            transform.position = currentSlot.transform.position;
+        }
         if (user != null)
         {
             if (user.GetComponent<HealthScript>().alive == false)
             {
-                diseableObject.SetActive(true);    
+                diseableObject.SetActive(true);
             }
         }
         if (target != null && user.CompareTag("Player") && enemies.Length > 0)
@@ -86,9 +97,8 @@ public class actionPrefabScript : MonoBehaviour
             }
         }
     }
-    public void setStats(string name, float _power, GameObject slot, GameObject _user, int coolDown, int inventoryOrder) 
+    public void setStats(string name, float _power, int _maxCooldown, GameObject slot, GameObject _user, int coolDown, int inventoryOrder) 
     {
-        nameText.text = name;
         powerText.text = _power.ToString();
         currentSlot = slot;
         currentSlot.GetComponent<actionHolderScript>().heldSlot = gameObject;
@@ -96,6 +106,7 @@ public class actionPrefabScript : MonoBehaviour
         
         _name = name;
         power = _power;
+        maxCooldown = _maxCooldown;
 
         if (coolDown > 0)
         {
@@ -109,28 +120,48 @@ public class actionPrefabScript : MonoBehaviour
             coolDownReady = true;
         }
         inventoryOrderCount = inventoryOrder;
-
+        foreach (var icon in iconsList)
+        {
+            icon.SetActive(false);
+        }
         switch (name)
         {
             case "strike":
-                Image.color = Color.red;
-                canHaveTarget = true;
+                setVariantVaribles(0, true);
                 break;
             case "defend":
-                Image.color = Color.blue;
-                canHaveTarget = false;
+                setVariantVaribles(1, false);
                 break;
-            case "heal": 
-                Image.color = Color.green;
-                canHaveTarget = false;
+            case "heal":
+                setVariantVaribles(2, false);
                 break;
             case "poison":
-                Image.color = Color.cyan;
-                canHaveTarget = true;
+                setVariantVaribles(3, true);
                 break;
         }  
         
         
+    }
+    void setVariantVaribles(int index, bool canTarget) 
+    {
+        iconsList[index].SetActive(true);
+        Image.color = bulletsColors[index];
+        canHaveTarget = canTarget;
+        switch (index) 
+        {
+            case 0:
+                description = $"Deals {power} damage to the target";
+                break;
+            case 1:
+                description = $"The user gains {power} block";
+                break;
+            case 2:
+                description = $"Heal the user for {power} HP";
+                break;
+            case 3:
+                description = $"Apply {power} poison to the target";
+                break;
+        }
     }
     void showTargetIcon() 
     {
@@ -158,8 +189,20 @@ public class actionPrefabScript : MonoBehaviour
     }
     public void mouseOver()
     {
-        showTargetIcon();
+        if (coolDownReady == true)
+        {
+            showTargetIcon();
+            anim.SetBool("mouseOver", true);
+        }
+        infoBox.showInfo(
+            description,
+            $"{_name} \n" +
+            $"Power: {power} \n" +
+            $"Cooldown: {maxCooldown}"
+            , gameObject
+             );
     }
+   
     public void mouseExit()
     {
         foreach (var enemy in enemies)
@@ -170,6 +213,7 @@ public class actionPrefabScript : MonoBehaviour
         {
             enemy.GetComponent<HealthScript>().showHighLight(false);
         }
+        anim.SetBool("mouseOver", false);
     }
     public void Drag()
     {
@@ -205,7 +249,7 @@ public class actionPrefabScript : MonoBehaviour
 
         }
 
-        
+        anim.SetBool("Grabing", true);
 
     }
     public void Drop() 
@@ -247,10 +291,11 @@ public class actionPrefabScript : MonoBehaviour
                 transform.position = currentSlot.transform.position;
             }
         }
-        else
+        else if (currentSlot != null)
         {
             transform.position = currentSlot.transform.position;
         }
+        anim.SetBool("Grabing", false);
     }
 
     public void popUp(bool bigger) 
