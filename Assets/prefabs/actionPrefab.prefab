@@ -196,6 +196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: actionsSprites
       objectReference: {fileID: 0}
+    - target: {fileID: 2128793048944578785, guid: b03b570871ee46046b5c748a4f4694c3, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8560391534197717474, guid: b03b570871ee46046b5c748a4f4694c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

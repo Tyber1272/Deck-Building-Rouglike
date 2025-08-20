@@ -27,15 +27,23 @@ public class HealthScript : MonoBehaviour
 
     [SerializeField] Animator anim;
     [SerializeField] Transform shotPoint;
+
+    GameManager gameManager;
     void Start()
     {
         Player = team == 0;
-        //print(Player);
+        gameManager = GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>();
         unitBuffs.Clear();
         buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
         updateStats();
 
-        
+        if (team == 1)
+        {
+            MaxHealth = MaxHealth + (gameManager.encounterCount + (Random.Range(-3, 2)));
+            Health = MaxHealth;
+
+            //Increase speed by each battle
+        }
     }
 
     // Update is called once per frame

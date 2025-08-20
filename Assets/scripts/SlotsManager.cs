@@ -20,6 +20,10 @@ public class SlotsManager : MonoBehaviour
     public bool turnInProcess;
     void Start()
     {
+        Invoke("delayedStart", 0.01f);
+    }
+    void delayedStart() 
+    {
         actionsMethods = GameObject.FindGameObjectWithTag("actionsMethods").GetComponent<actionsMethods>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemies = GameObject.FindGameObjectsWithTag("enemy");
