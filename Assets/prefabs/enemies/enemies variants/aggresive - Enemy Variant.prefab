@@ -12,10 +12,18 @@ PrefabInstance:
       propertyPath: enemyName
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1432288487178320402, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3049998
+      objectReference: {fileID: 0}
     - target: {fileID: 1869081863673556907, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.18
       objectReference: {fileID: 0}
+    - target: {fileID: 2181456500977624675, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1365471336419563435}
     - target: {fileID: 2181456500977624675, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
       propertyPath: Health
       value: 9
@@ -100,8 +108,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8302666496640438451, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+--- !u!95 &1365471336419563435 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2201356736364860166, guid: 95ae68744e1b5df4ca3782ab7f5ed337, type: 3}
+  m_PrefabInstance: {fileID: 900696543415551149}
+  m_PrefabAsset: {fileID: 0}

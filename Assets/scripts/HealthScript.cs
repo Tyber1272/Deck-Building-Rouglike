@@ -36,10 +36,9 @@ public class HealthScript : MonoBehaviour
         unitBuffs.Clear();
         buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
         updateStats();
-
         if (team == 1)
         {
-            MaxHealth = MaxHealth + (gameManager.encounterCount + (Random.Range(-3, 2)));
+            MaxHealth = MaxHealth + (gameManager.encounterCount + (Random.Range(-1, 7)));
             Health = MaxHealth;
 
             //Increase speed by each battle
@@ -67,7 +66,6 @@ public class HealthScript : MonoBehaviour
     }
     public void triggerAnimation(string name, Transform shotTarget) 
     {
-        print(name);
         if (anim == null)
         { return; }
         anim.SetTrigger(name);
@@ -78,6 +76,11 @@ public class HealthScript : MonoBehaviour
         if (anim == null)
         { return; }
         anim.SetBool(name, boolean);
+    }
+    public void increaseMaxHealth(float amount) 
+    { 
+        MaxHealth = MaxHealth + amount;
+        changeHealth(amount);
     }
     public void getDamage(float amount) 
     {

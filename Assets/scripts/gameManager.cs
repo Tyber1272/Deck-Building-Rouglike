@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     }
     void delayedNewBattle() 
     {
-        print(encounterCount);
         encounterText = GameObject.FindWithTag("encounterText").GetComponent<Text>();
         encounterCount = encounterCount + 1;
         encounterText.text = "Encounter: " + encounterCount;

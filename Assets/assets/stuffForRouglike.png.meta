@@ -853,7 +853,7 @@ TextureImporter:
         width: 358
         height: 69
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -874,7 +874,7 @@ TextureImporter:
         width: 380
         height: 75
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -895,7 +895,7 @@ TextureImporter:
         width: 150
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -903,6 +903,27 @@ TextureImporter:
       bones: []
       spriteID: dc57c57ed5fcf09468df0be3081a8480
       internalID: 667156922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tierThing
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 602
+        width: 88
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 417b4c588e1be8244ae65fa8d0393d87
+      internalID: -853110411
       vertices: []
       indices: 
       edges: []
@@ -964,6 +985,7 @@ TextureImporter:
       stuffForRouglike_6: 1254912334
       stuffForRouglike_9: -251977803
       swing: 872359757
+      tierThing: -853110411
       timeline: -848101573
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

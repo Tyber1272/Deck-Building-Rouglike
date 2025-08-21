@@ -16,17 +16,25 @@ public class battleManager : MonoBehaviour
     public rewardScript selectedReward;
 
     GameObject player;
+    public GameManager gameManager;
 
     void Start()
     {
         won = false;
         winMenu.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
+        gameManager = player.GetComponent<GameManager>();
 
-        possiblesActionsRewards.Add(new actionsClass.action("strike", 8, 0));
-        possiblesActionsRewards.Add(new actionsClass.action("defend", 9, 2));
-        possiblesActionsRewards.Add(new actionsClass.action("(:", 666, 0));
-
+        possiblesActionsRewards.Add(new actionsClass.action("strike", 7, 0));
+        possiblesActionsRewards.Add(new actionsClass.action("strike", 10, Random.Range(0, 2)));
+        possiblesActionsRewards.Add(new actionsClass.action("defend", 8, 0));
+        possiblesActionsRewards.Add(new actionsClass.action("defend", 13, Random.Range(0, 3)));
+        possiblesActionsRewards.Add(new actionsClass.action("heal", 10, Random.Range(1, 3)));
+        possiblesActionsRewards.Add(new actionsClass.action("poison", 5, Random.Range(1, 3)));
+        foreach (var action in possiblesActionsRewards)
+        {
+            action.power = action.power + gameManager.encounterCount + Random.Range(-2, 6);
+        }
     }
 
     // Update is called once per frame
@@ -37,7 +45,23 @@ public class battleManager : MonoBehaviour
     public void nextBattle() 
     {
         if (selectedReward != null)
-        { player.GetComponent<actionInventory>().addAction(selectedReward.actionReward); }
+        {
+            if (selectedReward.stringRewardType == "MaxHealth")
+            {
+                player.GetComponent<HealthScript>().increaseMaxHealth(selectedReward.amount);
+            }
+            else if (selectedReward.stringRewardType == "Action")
+            {
+                player.GetComponent<actionInventory>().addAction(selectedReward.actionReward);
+            }
+            else if (selectedReward.stringRewardType == "Upgrade" && selectedReward.actionHolder.heldSlot != null)
+            {
+                actionPrefabScript script = selectedReward.actionHolder.heldSlot.GetComponent<actionPrefabScript>();
+                player.GetComponent<actionInventory>().unitActions[script.inventoryOrderCount].power += selectedReward.amount;
+                player.GetComponent<actionInventory>().unitActions[script.inventoryOrderCount].tier += 1;
+            }
+                
+        }
         SceneManager.LoadScene(0);
         player.GetComponent<actionInventory>().newBattle();
     }

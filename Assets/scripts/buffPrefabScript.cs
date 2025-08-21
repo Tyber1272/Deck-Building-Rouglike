@@ -9,16 +9,18 @@ public class buffPrefabScript : MonoBehaviour
     [SerializeField] Text stack;
     int turnsLeft;
     string isDebuffString;
-    [SerializeField] GameObject stackObject;
     buffsClass.existingBuffs buffClass;
 
     infoBoxScript infoBox;
 
     [SerializeField] Sprite[] icons;  // poison, 
     [SerializeField] Color[] colors;
+
+    [SerializeField] Animator anim;
     private void Start()
     {
         infoBox = GameObject.FindGameObjectWithTag("infoBox").GetComponent<infoBoxScript>();
+        anim = GetComponent<Animator>();
     }
     public void setStats(string name_, float stack_, bool enemy, buffsClass.existingBuffs class_, int turnsLeft_)  
     {
@@ -44,15 +46,13 @@ public class buffPrefabScript : MonoBehaviour
         stack.text = stack_.ToString();
 
         
-        if (enemy != true)
+        if (enemy == false)
         {
-            stackObject.transform.rotation = new Quaternion(0, 180, 0, 0);
-            gameObject.transform.rotation = new Quaternion(0, 180, 0, 0);
+            anim.SetBool("right", true);
         }
         else
         {
-            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-            stackObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            anim.SetBool("right", false);
         }
     }
     

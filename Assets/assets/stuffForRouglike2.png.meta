@@ -466,6 +466,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: shotLight
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 764
+        width: 37
+        height: 31
+      alignment: 9
+      pivot: {x: 0.06397062, y: 0.4943139}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1558fbf5372840478d616ff9cb5cbb2
+      internalID: 802496197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rewardBox
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 474
+        width: 111
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 856476feb636d40459764c348037c880
+      internalID: -1235697550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rewardSelect
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 446
+        width: 108
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84ac83bee48113f4fbb51b68b338f9d1
+      internalID: 332224358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CountinueButton
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 307
+        width: 272
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3e045798158bc147bfd762f958a72f9
+      internalID: -1419445717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: winEffect
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 593
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e303ca690855f2d458bb736fc494921d
+      internalID: -317466589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -477,6 +582,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      CountinueButton: -1419445717
       ar: 1892088430
       arm: -40648956
       arm2: 406171689
@@ -489,11 +595,15 @@ TextureImporter:
       hat: -63983542
       head: -586589647
       leg: -815384050
+      rewardBox: -1235697550
+      rewardSelect: 332224358
       scarf: -640176354
       shoe: -1455246886
+      shotLight: 802496197
       stuffForRouglike2_1: 1937671300
       stuffForRouglike2_2: -912290517
       torso: -577930983
+      winEffect: -317466589
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

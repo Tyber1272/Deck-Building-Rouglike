@@ -817,6 +817,7 @@ MonoBehaviour:
   rewardsHolder: {fileID: 80707914}
   actionPrefab: {fileID: 5830733419929404447, guid: ba3ecd49b3d3cd848b06ad838a4da549, type: 3}
   selectedReward: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!4 &259194660
 Transform:
   m_ObjectHideFlags: 0
@@ -1413,7 +1414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationDecreaseX: 300
   rotationDecreaseY: 280
-  rotationDelayX: -4
+  rotationDelayX: -1
   rotationDelayY: 0
 --- !u!1 &520912740
 GameObject:
@@ -3048,8 +3049,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 5.4324, y: -1, z: 16.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -3246,7 +3247,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 80
+  m_Spacing: 60
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -3714,11 +3715,11 @@ RectTransform:
   - {fileID: 1828987324}
   - {fileID: 1983366834}
   - {fileID: 903701374}
+  - {fileID: 943184880}
   - {fileID: 745753824}
   - {fileID: 537731896}
   - {fileID: 1307997959}
   - {fileID: 1830409903}
-  - {fileID: 943184880}
   - {fileID: 294663529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3899,7 +3900,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 80
+  m_Spacing: 60
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

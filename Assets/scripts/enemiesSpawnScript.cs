@@ -11,7 +11,6 @@ public class enemiesSpawnScript : MonoBehaviour
     GameManager gameManager;
     void Start()
     {
-        print(name);
         gameManager = GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>();
         if (gameManager.encounterCount == 0)
         {

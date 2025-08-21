@@ -82,6 +82,7 @@ public class SlotsManager : MonoBehaviour
             healthScripts.Add(enemy.GetComponent<HealthScript>());
             enemy.GetComponent<actionInventory>().newTurn();
         }
+        
         player.GetComponent<actionInventory>().newTurn();
         BattleManager.endTurn();
         if (BattleManager.won)
@@ -157,7 +158,7 @@ public class SlotsManager : MonoBehaviour
                 {
                     actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, player, action.user);
                 }
-                else
+                else if (aliveEnemies.Count != 0)
                 {
                     actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, aliveEnemies[Random.Range(0, aliveEnemies.Count)], action.user);
                 }

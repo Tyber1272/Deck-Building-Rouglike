@@ -7,6 +7,7 @@ public class actionHolderScript : MonoBehaviour
 {
     public GameObject heldSlot = null;
     public bool player = true;
+    public bool upgreadeSlot;
     [SerializeField] Image image;
     [SerializeField] Color[] colors; // 0 - normal, 1 - highlight
 

@@ -36,11 +36,11 @@ public class actionInventory : MonoBehaviour
         }
         else 
         {
-            unitActions.Add(new actionsClass.action("strike", 10, 0));
-            unitActions.Add(new actionsClass.action("strike", 10, 0));
+            unitActions.Add(new actionsClass.action("strike", 99, 0));
+            unitActions.Add(new actionsClass.action("strike", 7, 0));
             unitActions.Add(new actionsClass.action("defend", 5, 0));
-            unitActions.Add(new actionsClass.action("heal", 3, 0));
-            unitActions.Add(new actionsClass.action("poison", 10, 2));
+            unitActions.Add(new actionsClass.action("defend", 8, 0));
+            unitActions.Add(new actionsClass.action("heal", 4, 1));
 
             holders.Clear();
             foreach (var action in unitActions)
@@ -77,6 +77,18 @@ public class actionInventory : MonoBehaviour
         gameObject.GetComponent<HealthScript>().newBattle();
         print("new battle");
         holders.Clear();
+        cooldownsTimer.Clear();
+        foreach (var actions in unitActions)
+        {
+            if (actions.coolDown > 0)
+            {
+                cooldownsTimer.Add(actions.coolDown + 1);
+            }
+            else
+            {
+                cooldownsTimer.Add(actions.coolDown);
+            }
+        }
     }
 
     public void newTurn() 
@@ -102,7 +114,6 @@ public class actionInventory : MonoBehaviour
             Inventory.GetComponent<HorizontalLayoutGroup>().enabled = true;
             if (holders.Count == 0)
             {
-                print("niga bliat");
                 holders.Clear();
                 foreach (var action in unitActions)
                 {
@@ -114,14 +125,15 @@ public class actionInventory : MonoBehaviour
             {
                 GameObject currentAction = Instantiate(actionPrefab, transform.position, transform.rotation, Inventory.transform);
                 actionPrefabScript script = currentAction.GetComponent<actionPrefabScript>();
-                if (cooldownsTimer[count] > 0)
+                if (cooldownsTimer[count] > 0 && GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>().won == false)
                 {
                     cooldownsTimer[count] = cooldownsTimer[count] - 1;
                 }
-                script.setStats(action.name, action.power, action.coolDown, holders[count], gameObject, cooldownsTimer[count], count);
+                script.setStats(action.name, action.power, action.coolDown, holders[count], gameObject, cooldownsTimer[count], count, action.tier);
                 count++;
             }
             Invoke("diseableInventoryLayout", 0.1f);
+
         }
         else // enemy
         {
@@ -157,7 +169,7 @@ public class actionInventory : MonoBehaviour
                         readyUnitActions.Remove(action);
                         GameObject currentAction = Instantiate(actionPrefab, slot.transform.position, transform.rotation, holdersInventory.transform);
                         actionPrefabScript script2 = currentAction.GetComponent<actionPrefabScript>();
-                        script2.setStats(action.name, action.power, action.coolDown, slot.GetComponent<SlotScript>().actionHolderScript.gameObject, gameObject, cooldownsTimer[count], action.inventoryOrder);
+                        script2.setStats(action.name, action.power, action.coolDown, slot.GetComponent<SlotScript>().actionHolderScript.gameObject, gameObject, cooldownsTimer[count], action.inventoryOrder, action.tier);
                     }
                     
                     count++;

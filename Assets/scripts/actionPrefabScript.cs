@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 using UnityEditor.Build;
+using UnityEditor.Rendering;
 
 
 public class actionPrefabScript : MonoBehaviour
@@ -19,6 +20,8 @@ public class actionPrefabScript : MonoBehaviour
     public string _name;
     public float power;
     int maxCooldown;
+    public int tier;
+    string tierString;
     string description;
     public bool coolDownReady = true;
     public GameObject target;
@@ -96,8 +99,14 @@ public class actionPrefabScript : MonoBehaviour
                 target = enemies[Random.Range(0, enemies.Length)];
             }
         }
+        if (GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>().won == true)//aktywuje to akcje nawet jak nie s¹ gotowe po wygranej
+        {
+            diseableObject.SetActive(false);
+            coolDownReady = true;
+            coolDownIcon.SetActive(false);
+        }
     }
-    public void setStats(string name, float _power, int _maxCooldown, GameObject slot, GameObject _user, int coolDown, int inventoryOrder) 
+    public void setStats(string name, float _power, int _maxCooldown, GameObject slot, GameObject _user, int coolDown, int inventoryOrder, int _tier) 
     {
         powerText.text = _power.ToString();
         currentSlot = slot;
@@ -107,8 +116,15 @@ public class actionPrefabScript : MonoBehaviour
         _name = name;
         power = _power;
         maxCooldown = _maxCooldown;
+        tier = _tier;
 
-        if (coolDown > 0)
+        tierString = tier.ToString();
+        if (tier == 3) // <<< Maksymalny tier tutaj
+        {
+            tierString = "MAX";
+        }
+        tierString = "MAX";
+        if (coolDown > 0 && GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>().won == false)
         {
             diseableObject.SetActive(true);
             coolDownReady = false;
@@ -198,7 +214,8 @@ public class actionPrefabScript : MonoBehaviour
             description,
             $"{_name} \n" +
             $"Power: {power} \n" +
-            $"Cooldown: {maxCooldown}"
+            $"Cooldown: {maxCooldown} \n" +
+            $"Tier: {tierString}"
             , gameObject
              );
     }
@@ -221,6 +238,7 @@ public class actionPrefabScript : MonoBehaviour
         {
                 return;
         }
+        actionHolders = GameObject.FindGameObjectsWithTag("actionHolder");
         isHeld = true;
         transform.position = Input.mousePosition;
         transform.SetAsLastSibling();
@@ -233,18 +251,22 @@ public class actionPrefabScript : MonoBehaviour
             script.slotInRange(false);
             if (distance < bestDistance && (script.heldSlot == null || script.heldSlot == gameObject) && script.player == true && distance <= slotPlaceDistance)
             {
-                if (targetHolder != actionHolder)
+                if ((tierString != "MAX" && script.upgreadeSlot == true) || script.upgreadeSlot == false)
                 {
-                    foreach (var _actionHolder in actionHolders)
+                    if (targetHolder != actionHolder)
                     {
-                        actionHolderScript _script = _actionHolder.GetComponent<actionHolderScript>();
-                        _script.slotInRange(false);
+                        foreach (var _actionHolder in actionHolders)
+                        {
+                            actionHolderScript _script = _actionHolder.GetComponent<actionHolderScript>();
+                            _script.slotInRange(false);
+                        }
+
+                        bestDistance = distance;
+                        targetHolder = actionHolder;
+                        script.slotInRange(true);
+                        inRange = true;
                     }
                 }
-                bestDistance = distance;
-                targetHolder = actionHolder;
-                script.slotInRange(true);
-                inRange = true;
             }
 
         }
