@@ -16,7 +16,7 @@ public class rewardScript : MonoBehaviour
     }
     public rewardTypes rewardType; public string stringRewardType;
 
-    battleManager battleMagaer;
+    battleManager battleManager;
 
     [SerializeField] GameObject actionObject, healthObject, upgradObject;
 
@@ -36,20 +36,26 @@ public class rewardScript : MonoBehaviour
 
     [SerializeField] GameObject selectObject;
 
-    infoBoxScript infoBox;
+    [SerializeField] GameObject denyObject;
+
 
     void Start()
     {
-        battleMagaer = GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>();
+        battleManager = GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>();
+        actionInventory playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<actionInventory>();
         int rndNum = Random.Range(0, 4);
         rewardType = (rewardTypes)Random.Range(0, 3);
+        if (playerInventory.unitActions.Count >= playerInventory.maxInventorySpace && rewardType == rewardTypes.Action)
+        {
+            rewardType = rewardTypes.MaxHealth;
+        }
         stringRewardType = rewardType.ToString();
         print(stringRewardType);
         if (rewardType == rewardTypes.Action)
         {
             actionObject.SetActive(true);
-            actionReward = battleMagaer.possiblesActionsRewards[Random.Range(0, battleMagaer.possiblesActionsRewards.Count)];
-            actionReward.power = actionReward.power + battleMagaer.gameManager.encounterCount + Random.Range(-2, 6);
+            actionReward = battleManager.possiblesActionsRewards[Random.Range(0, battleManager.possiblesActionsRewards.Count)];
+            actionReward.power = actionReward.power + battleManager.gameManager.encounterCount + Random.Range(-2, 6);
             powerText.text = actionReward.power.ToString();
             cooldownText.text = actionReward.coolDown.ToString();
             foreach (var icon in icons) 
@@ -79,13 +85,13 @@ public class rewardScript : MonoBehaviour
         if (rewardType == rewardTypes.MaxHealth)
         {
             healthObject.SetActive(true);
-            amount = 2 + battleMagaer.gameManager.encounterCount + Random.Range(-2, 4);
+            amount = 6 + battleManager.gameManager.encounterCount + Random.Range(-5, 6);
             healthAmount.text = "+" + amount.ToString();
         }
         if (rewardType == rewardTypes.Upgrade) 
         {
             upgradObject.SetActive(true);
-            amount = battleMagaer.gameManager.encounterCount + Random.Range(1, 4);
+            amount = battleManager.gameManager.encounterCount + Random.Range(1, 5);
             upgradeAmount.text = "+" + amount.ToString();
         }
     }
@@ -102,7 +108,7 @@ public class rewardScript : MonoBehaviour
 
     void Update()
     {
-        if (battleMagaer.selectedReward == this)
+        if (battleManager.selectedReward == this)
         {
             selectObject.SetActive(true);
         }
@@ -120,11 +126,19 @@ public class rewardScript : MonoBehaviour
         {
             heldAction = null;
         }
+        if (battleManager.holdingMaxTier == true) 
+        {
+            denyObject.SetActive(true);
+        }
+        else
+        {
+            denyObject.SetActive(false);
+        }
     }
-
+  
     public void select()
     {
-        battleMagaer.selectedReward = this;
+        battleManager.selectedReward = this;
     }
     
 }

@@ -33,6 +33,8 @@ public class actionPrefabScript : MonoBehaviour
     [SerializeField] GameObject holderPrefab;
     //[SerializeField] GameObject Canvas;
 
+    [SerializeField] Image tierImage; [SerializeField] Color[] tiersColors;
+
     [SerializeField] Camera mainCam;
     infoBoxScript infoBox;
     [SerializeField] float slotPlaceDistance;
@@ -46,7 +48,7 @@ public class actionPrefabScript : MonoBehaviour
     SlotsManager slotsManager;
     Vector3 baseSize;
     [SerializeField] Vector3 popUpSize;
-
+    battleManager battleManager;
     Animator anim;
     private void Start()
     {
@@ -57,6 +59,7 @@ public class actionPrefabScript : MonoBehaviour
         mainCam = Camera.main;
         actionHolders = GameObject.FindGameObjectsWithTag("actionHolder");
         enemies = GameObject.FindGameObjectsWithTag("enemy");
+        battleManager = GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>();
         Invoke("Drop", 0.02f);
         if (canHaveTarget && enemies.Length > 0)
         {
@@ -123,7 +126,7 @@ public class actionPrefabScript : MonoBehaviour
         {
             tierString = "MAX";
         }
-        tierString = "MAX";
+        tierImage.color = tiersColors[tier];
         if (coolDown > 0 && GameObject.FindGameObjectWithTag("battleManager").GetComponent<battleManager>().won == false)
         {
             diseableObject.SetActive(true);
@@ -210,6 +213,10 @@ public class actionPrefabScript : MonoBehaviour
             showTargetIcon();
             anim.SetBool("mouseOver", true);
         }
+        if (tierString == "MAX")
+        {
+            battleManager.holdingMaxTier = true;
+        }
         infoBox.showInfo(
             description,
             $"{_name} \n" +
@@ -231,6 +238,7 @@ public class actionPrefabScript : MonoBehaviour
             enemy.GetComponent<HealthScript>().showHighLight(false);
         }
         anim.SetBool("mouseOver", false);
+        battleManager.holdingMaxTier = false;
     }
     public void Drag()
     {

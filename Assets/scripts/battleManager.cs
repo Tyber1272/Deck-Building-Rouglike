@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class battleManager : MonoBehaviour
 
     public List<actionsClass.action> possiblesActionsRewards = new List<actionsClass.action>();
     public rewardScript selectedReward;
+    public bool holdingMaxTier;
 
     GameObject player;
     public GameManager gameManager;

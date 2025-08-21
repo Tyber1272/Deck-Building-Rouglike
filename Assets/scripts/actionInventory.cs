@@ -19,6 +19,8 @@ public class actionInventory : MonoBehaviour
     [SerializeField] GameObject holdersInventory;
     [SerializeField] GameObject holderPrefab;
     [SerializeField] GameObject Canvas;
+    [SerializeField] Text invenoryAmount;
+    public float maxInventorySpace = 10;
     GameManager gameManager;
     public enum enemyType
     {
@@ -36,7 +38,7 @@ public class actionInventory : MonoBehaviour
         }
         else 
         {
-            unitActions.Add(new actionsClass.action("strike", 99, 0));
+            unitActions.Add(new actionsClass.action("strike", 5, 0));
             unitActions.Add(new actionsClass.action("strike", 7, 0));
             unitActions.Add(new actionsClass.action("defend", 5, 0));
             unitActions.Add(new actionsClass.action("defend", 8, 0));
@@ -47,6 +49,7 @@ public class actionInventory : MonoBehaviour
             {
                 holders.Add(Instantiate(holderPrefab, transform.position, transform.rotation, holdersInventory.transform));
             }
+            maxInventorySpace = 10;
         }
         foreach (var actions in unitActions)
         {
@@ -58,6 +61,15 @@ public class actionInventory : MonoBehaviour
             {
                 cooldownsTimer.Add(actions.coolDown);
             }
+        }
+    }
+    private void Update()
+    {
+        if (player)
+        {
+            invenoryAmount = GameObject.FindGameObjectWithTag("InventoryAmount").GetComponent<Text>();
+            print("Inventory: " + unitActions.Count.ToString() + "/" + maxInventorySpace);
+            invenoryAmount.text = "Inventory: " + unitActions.Count.ToString() + "/" + maxInventorySpace;
         }
     }
     public void addAction(actionsClass.action action) 

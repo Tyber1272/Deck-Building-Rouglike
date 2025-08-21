@@ -77,11 +77,18 @@ MonoBehaviour:
   - {r: 0.889667, g: 0.58679235, b: 1, a: 1}
   _name: 
   power: 0
+  tier: 0
   coolDownReady: 1
   target: {fileID: 0}
   user: {fileID: 0}
   inventoryOrderCount: 0
   holderPrefab: {fileID: 7706766721917050822, guid: 056416c18429e8f47867479ff9105f14, type: 3}
+  tierImage: {fileID: 5500010452616687081}
+  tiersColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.7056604, g: 0.7056604, b: 0.7056604, a: 1}
+  - {r: 1, g: 0.77863604, b: 0.2471698, a: 1}
+  - {r: 0.114012085, g: 0.7776344, b: 0.90188676, a: 1}
   mainCam: {fileID: 0}
   slotPlaceDistance: 180
   diseableObject: {fileID: 1587265609270398995}
@@ -332,6 +339,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3771027684516676722, guid: b03b570871ee46046b5c748a4f4694c3, type: 3}
   m_PrefabInstance: {fileID: 14241401299973580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5500010452616687081 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5503801335162705957, guid: b03b570871ee46046b5c748a4f4694c3, type: 3}
+  m_PrefabInstance: {fileID: 14241401299973580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5568021016381799714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5581945552138799342, guid: b03b570871ee46046b5c748a4f4694c3, type: 3}

@@ -38,7 +38,7 @@ public class HealthScript : MonoBehaviour
         updateStats();
         if (team == 1)
         {
-            MaxHealth = MaxHealth + (gameManager.encounterCount + (Random.Range(-1, 7)));
+            MaxHealth = MaxHealth + (gameManager.encounterCount + (Random.Range(1, 10)));
             Health = MaxHealth;
 
             //Increase speed by each battle
