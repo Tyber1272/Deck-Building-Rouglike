@@ -20,6 +20,8 @@ TagManager:
   - encounterText
   - infoBox
   - InventoryAmount
+  - blackScreen
+  - finalStats
   layers:
   - Default
   - TransparentFX

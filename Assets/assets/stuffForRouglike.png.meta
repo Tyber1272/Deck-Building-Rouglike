@@ -916,7 +916,7 @@ TextureImporter:
         width: 88
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -924,6 +924,174 @@ TextureImporter:
       bones: []
       spriteID: 417b4c588e1be8244ae65fa8d0393d87
       internalID: -853110411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cactus1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 275
+        width: 116
+        height: 193
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6437bf43ac1a3434297c3e1bc49a7849
+      internalID: -1807019550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cactus2
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 279
+        width: 106
+        height: 121
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b925b567c9ba1994a9e5a95d029b2eaf
+      internalID: 433504377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cactus3
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 290
+        width: 64
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d01de03f217d8ba4caef2235b6eb520a
+      internalID: 1373432924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kszak thing
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 291
+        width: 60
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc11d3afdfbfc9a4b8ad08aff855b281
+      internalID: 1932209410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small rock1
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 376
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b3c8b58d5017334e9066ef54aaa6eb4
+      internalID: 836070750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small rock2
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 373
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 016b267657121084aaeb7af02dc34014
+      internalID: 1222517917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big rock2
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 408
+        width: 70
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1001a51fa0c6e694e9efeb41981739cc
+      internalID: 1770537992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big rock1
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 411
+        width: 129
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c782214a0e37e94a9950fe80cc97e1d
+      internalID: 1281503287
       vertices: []
       indices: 
       edges: []
@@ -943,9 +1111,14 @@ TextureImporter:
       arm1: 641674926
       arm2: 817177426
       belt: 1580344156
+      big rock1: 1281503287
+      big rock2: 1770537992
       blockIcon: 2109741008
       buffIcon: -1903198863
       bullet: 364450983
+      cactus1: -1807019550
+      cactus2: 433504377
+      cactus3: 1373432924
       defend: -1599148141
       eyes1: -1934570820
       eyes2: -272191243
@@ -965,6 +1138,7 @@ TextureImporter:
       healthIcon: 2113979384
       heart: 1653101780
       holder: 563552156
+      kszak thing: 1932209410
       leg1: -430230713
       leg2: 1770186187
       neck: -1360621659
@@ -974,6 +1148,8 @@ TextureImporter:
       scarf2: 581578549
       shield: 163777248
       shoe: -1813489248
+      small rock1: 836070750
+      small rock2: 1222517917
       startButton: 667156922
       strike: -717447962
       stuffForRouglike_11: 2005486726

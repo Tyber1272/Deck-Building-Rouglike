@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.TextCore.Text;
+//using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,10 +28,10 @@ public class battleManager : MonoBehaviour
         gameManager = player.GetComponent<GameManager>();
 
         possiblesActionsRewards.Add(new actionsClass.action("strike", 7, 0));
-        possiblesActionsRewards.Add(new actionsClass.action("strike", 10, Random.Range(0, 2)));
+        possiblesActionsRewards.Add(new actionsClass.action("strike", 9, Random.Range(0, 2)));
         possiblesActionsRewards.Add(new actionsClass.action("defend", 8, 0));
-        possiblesActionsRewards.Add(new actionsClass.action("defend", 13, Random.Range(0, 3)));
-        possiblesActionsRewards.Add(new actionsClass.action("heal", 10, Random.Range(1, 3)));
+        possiblesActionsRewards.Add(new actionsClass.action("defend", 12, Random.Range(0, 3)));
+        possiblesActionsRewards.Add(new actionsClass.action("heal", 7, Random.Range(1, 3)));
         possiblesActionsRewards.Add(new actionsClass.action("poison", 5, Random.Range(1, 3)));
         foreach (var action in possiblesActionsRewards)
         {
@@ -64,7 +64,12 @@ public class battleManager : MonoBehaviour
             }
                 
         }
-        SceneManager.LoadScene(0);
+        GameObject.FindGameObjectWithTag("blackScreen").GetComponent<Animator>().SetTrigger("comeIn");
+        Invoke("delayedNewBattle", 2);
+    }
+    void delayedNewBattle() 
+    {
+        SceneManager.LoadScene(1);
         player.GetComponent<actionInventory>().newBattle();
     }
     public void endTurn() 

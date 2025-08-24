@@ -43,6 +43,7 @@ public class buffsClass : MonoBehaviour
             {
                 case "poison":
                     healthScript.getDamage(buff.stack);
+                    healthScript.triggerAnimation("hit", null);
                     buff.stack = buff.stack - 1;
                     buff.turnsLeft = (int)buff.stack + 1;     // +1 jest po to aby sumowa³o siê z --- buff.turnsLeft -= 1; ---
                     break;

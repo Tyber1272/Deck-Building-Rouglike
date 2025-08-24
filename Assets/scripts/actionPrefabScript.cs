@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 using UnityEditor.Build;
-using UnityEditor.Rendering;
+//using UnityEditor.Rendering;
 
 
 public class actionPrefabScript : MonoBehaviour
@@ -26,7 +26,7 @@ public class actionPrefabScript : MonoBehaviour
     public bool coolDownReady = true;
     public GameObject target;
     public GameObject user;
-    bool canHaveTarget;
+    public bool canHaveTarget;
     public int inventoryOrderCount;
 
     

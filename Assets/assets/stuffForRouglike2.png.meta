@@ -571,6 +571,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tent
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 887
+        width: 135
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c28f02e98f98e544d8c80df717eb9dd6
+      internalID: 243362260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cliff thing
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 585
+        width: 401
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a4ad34b963899f4ebb0e623acfe9f96
+      internalID: 271361800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: button
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 353
+        width: 338
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef07fda0a975c654f86c8c85a586ce86
+      internalID: 1278809661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -586,6 +649,8 @@ TextureImporter:
       ar: 1892088430
       arm: -40648956
       arm2: 406171689
+      button: 1278809661
+      cliff thing: 271361800
       eyes1: 1312623370
       eyes2: -1954073277
       finger: -517211807
@@ -602,6 +667,7 @@ TextureImporter:
       shotLight: 802496197
       stuffForRouglike2_1: 1937671300
       stuffForRouglike2_2: -912290517
+      tent: 243362260
       torso: -577930983
       winEffect: -317466589
   mipmapLimitGroupName: 

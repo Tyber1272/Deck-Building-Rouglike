@@ -35,6 +35,7 @@ public class rewardScript : MonoBehaviour
     GameObject heldAction = null;
 
     [SerializeField] GameObject selectObject;
+    [SerializeField] AudioClip selectSFX;
 
     [SerializeField] GameObject denyObject;
 
@@ -55,7 +56,7 @@ public class rewardScript : MonoBehaviour
         {
             actionObject.SetActive(true);
             actionReward = battleManager.possiblesActionsRewards[Random.Range(0, battleManager.possiblesActionsRewards.Count)];
-            actionReward.power = actionReward.power + battleManager.gameManager.encounterCount + Random.Range(-2, 6);
+            actionReward.power = actionReward.power + battleManager.gameManager.encounterCount + Random.Range(-2, 4);
             powerText.text = actionReward.power.ToString();
             cooldownText.text = actionReward.coolDown.ToString();
             foreach (var icon in icons) 
@@ -85,13 +86,13 @@ public class rewardScript : MonoBehaviour
         if (rewardType == rewardTypes.MaxHealth)
         {
             healthObject.SetActive(true);
-            amount = 6 + battleManager.gameManager.encounterCount + Random.Range(-5, 6);
+            amount = 0 + battleManager.gameManager.encounterCount + Random.Range(1, 7);
             healthAmount.text = "+" + amount.ToString();
         }
         if (rewardType == rewardTypes.Upgrade) 
         {
             upgradObject.SetActive(true);
-            amount = battleManager.gameManager.encounterCount + Random.Range(1, 5);
+            amount = battleManager.gameManager.encounterCount + Random.Range(1, 6);
             upgradeAmount.text = "+" + amount.ToString();
         }
     }
@@ -126,7 +127,7 @@ public class rewardScript : MonoBehaviour
         {
             heldAction = null;
         }
-        if (battleManager.holdingMaxTier == true) 
+        if (battleManager.holdingMaxTier == true && rewardType == rewardTypes.Upgrade) 
         {
             denyObject.SetActive(true);
         }
@@ -139,6 +140,7 @@ public class rewardScript : MonoBehaviour
     public void select()
     {
         battleManager.selectedReward = this;
+        AudioSource.PlayClipAtPoint(selectSFX, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
     }
     
 }

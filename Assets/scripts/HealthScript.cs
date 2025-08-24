@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthScript : MonoBehaviour
 {
@@ -27,18 +28,27 @@ public class HealthScript : MonoBehaviour
 
     [SerializeField] Animator anim;
     [SerializeField] Transform shotPoint;
+    Animator blackScreenAnim;
+    [SerializeField] AudioClip[] sfx; // 0-gunshot, 1-spin
+
+    public int encouterCount;
+    public float highestHP;
+    public int killCount;
+
+    public bool firstBattle = true;
 
     GameManager gameManager;
     void Start()
     {
         Player = team == 0;
         gameManager = GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>();
+        highestHP = Health;
         unitBuffs.Clear();
         buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
         updateStats();
         if (team == 1)
         {
-            MaxHealth = MaxHealth + (gameManager.encounterCount + (Random.Range(1, 10)));
+            MaxHealth = MaxHealth + 5 + gameManager.encounterCount + (Random.Range(1, 10));
             Health = MaxHealth;
 
             //Increase speed by each battle
@@ -52,8 +62,13 @@ public class HealthScript : MonoBehaviour
     }
     public void newBattle() 
     {
+        firstBattle = false;
         boolAnimation("aim", false);
         buffClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
+        for (int i = 0; i < unitBuffs.Count; i++)
+        {
+            removeBuff(i);
+        }
         gameObject.GetComponent<GameManager>().newBattle();
     }
     public void newTurn() 
@@ -62,18 +77,26 @@ public class HealthScript : MonoBehaviour
         {
             buffClassScript.newTurnForUnit(gameObject, this);
         }
+        block = 0; updateStats();
         boolAnimation("aim", false);
+        if (team == 0)
+        {
+            AudioSource.PlayClipAtPoint(sfx[1], transform.position);
+        }
     }
     public void triggerAnimation(string name, Transform shotTarget) 
     {
         if (anim == null)
         { return; }
         anim.SetTrigger(name);
-        
+        if (name == "shot")
+        {
+            AudioSource.PlayClipAtPoint(sfx[0], transform.position); 
+        }
     }
     public void boolAnimation(string name, bool boolean)
     {
-        if (anim == null)
+        if (anim == null) 
         { return; }
         anim.SetBool(name, boolean);
     }
@@ -103,6 +126,10 @@ public class HealthScript : MonoBehaviour
         if (Health <= 0)
         {
             die();   
+        }
+        if (Health > highestHP)
+        {
+            highestHP = Health;
         }
         updateStats();
     }
@@ -178,7 +205,23 @@ public class HealthScript : MonoBehaviour
     {
         alive = false;
         boolAnimation("die", true);
-        Invoke("setActiveOnFalse", 1f);
+        if (team == 1)
+        {
+            Invoke("setActiveOnFalse", 1f);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<HealthScript>().killCount++;
+        }
+        else
+        {
+            blackScreenAnim = GameObject.FindGameObjectWithTag("blackScreen").GetComponent<Animator>();
+            print(blackScreenAnim);
+            blackScreenAnim.SetTrigger("fadeIn");
+            encouterCount = gameManager.encounterCount;
+            Invoke("delayedGameOver", 3f);
+        }
+    }
+    void delayedGameOver() 
+    {
+        SceneManager.LoadScene("game over");
     }
     void setActiveOnFalse() 
     {

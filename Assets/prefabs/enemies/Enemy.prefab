@@ -932,6 +932,12 @@ MonoBehaviour:
   buffClassScript: {fileID: 0}
   anim: {fileID: 0}
   shotPoint: {fileID: 0}
+  sfx:
+  - {fileID: 8300000, guid: 95b2cc16f4018d74eb119f82f270278c, type: 3}
+  - {fileID: 8300000, guid: dc3dc87451da14340860faa6fd797a48, type: 3}
+  encouterCount: 0
+  highestHP: 0
+  killCount: 0
 --- !u!114 &-3680643703699932710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -951,6 +957,8 @@ MonoBehaviour:
   holdersInventory: {fileID: 0}
   holderPrefab: {fileID: 0}
   Canvas: {fileID: 0}
+  invenoryAmount: {fileID: 0}
+  maxInventorySpace: 10
   enemyName: 0
 --- !u!61 &2612331774488023830
 BoxCollider2D:

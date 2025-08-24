@@ -18,6 +18,7 @@ public class SlotsManager : MonoBehaviour
     int actionCount;
     public float coolDownAction;
     public bool turnInProcess;
+    [SerializeField] AudioClip blankSFX;
     void Start()
     {
         Invoke("delayedStart", 0.01f);
@@ -65,6 +66,7 @@ public class SlotsManager : MonoBehaviour
                 slotScript.user = slot.user;
             }
         }
+        
     }
 
     void Update()
@@ -142,28 +144,39 @@ public class SlotsManager : MonoBehaviour
 
             return; 
         }
-
+        bool playSound = true;
         slotsObjectsList[actionCount].GetComponent<SlotScript>().highLightShow(true);
         SlotScript script = slotsObjectsList[actionCount].GetComponent< SlotScript>();
         if (script.actionHolderScript.heldSlot != null)
         {
             actionPrefabScript action = script.actionHolderScript.heldSlot.GetComponent<actionPrefabScript>();
+            if (action.target == null && action.canHaveTarget == false && action.user.CompareTag("enemy"))
+            {
+                action.target = aliveEnemies[Random.Range(0, aliveEnemies.Count)];
+            }
             if (action.target != null)
             {
                 actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, action.target, action.user);
+                playSound = false;
             }
             else
             {
                 if (slotsObjectsList[actionCount].GetComponent<SlotScript>().unitTeam == 0)
                 {
                     actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, player, action.user);
+                    playSound = false;
                 }
                 else if (aliveEnemies.Count != 0)
                 {
                     actionsMethods.doAction(action._name, action.power, action.inventoryOrderCount, aliveEnemies[Random.Range(0, aliveEnemies.Count)], action.user);
+                    playSound = false;
                 }
 
             }
+        }
+        if (playSound == true)
+        {
+            AudioSource.PlayClipAtPoint(blankSFX, player.transform.position);
         }
         Invoke("doAction", coolDownAction);
         actionCount++;

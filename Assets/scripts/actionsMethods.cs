@@ -7,6 +7,8 @@ public class actionsMethods : MonoBehaviour
     [SerializeField] GameObject[] effects;
     string Name; float power; int order; GameObject target; GameObject user;
     buffsClass buffsClassScript;
+    [SerializeField] AudioClip[] sfx; // blank, slash, defend, heal, poinson
+    AudioClip audioToPlay;
     private void Start()
     {
         buffsClassScript = GameObject.FindGameObjectWithTag("buffsClass").GetComponent<buffsClass>();
@@ -34,6 +36,8 @@ public class actionsMethods : MonoBehaviour
                 poison();
                 break;
         }
+        AudioSource.PlayClipAtPoint(audioToPlay, target.transform.position);
+
     }
 
     void strike()
@@ -42,6 +46,7 @@ public class actionsMethods : MonoBehaviour
         target.GetComponent<HealthScript>().getDamage(power);
         Instantiate(effects[0], target.transform.position, transform.rotation);
         user.GetComponent<HealthScript>().triggerAnimation("shot", target.transform);
+        audioToPlay = sfx[1];
     }
 
     void defend()
@@ -50,6 +55,7 @@ public class actionsMethods : MonoBehaviour
         target.GetComponent<HealthScript>().changeBlock(power);
         Instantiate(effects[1], target.transform.position, transform.rotation);
         user.GetComponent<HealthScript>().triggerAnimation("shotUp", target.transform);
+        audioToPlay = sfx[2];
     }
 
     void heal() 
@@ -58,6 +64,7 @@ public class actionsMethods : MonoBehaviour
         target.GetComponent<HealthScript>().changeHealth(power);
         Instantiate(effects[2], target.transform.position, transform.rotation);
         user.GetComponent<HealthScript>().triggerAnimation("shotUp", target.transform);
+        audioToPlay = sfx[3];
     }
 
     void poison()
@@ -66,6 +73,7 @@ public class actionsMethods : MonoBehaviour
         target.GetComponent<HealthScript>().addBuff(buffsClassScript.poison, power, (int)power);
         Instantiate(effects[3], target.transform.position, transform.rotation);
         user.GetComponent<HealthScript>().triggerAnimation("shot", target.transform);
+        audioToPlay = sfx[4];
     }
 
 }

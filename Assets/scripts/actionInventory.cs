@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using Unity.VisualScripting;
-using UnityEditor.Build;
+//using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +41,7 @@ public class actionInventory : MonoBehaviour
             unitActions.Add(new actionsClass.action("strike", 5, 0));
             unitActions.Add(new actionsClass.action("strike", 7, 0));
             unitActions.Add(new actionsClass.action("defend", 5, 0));
-            unitActions.Add(new actionsClass.action("defend", 8, 0));
+            unitActions.Add(new actionsClass.action("defend", 6, 0));
             unitActions.Add(new actionsClass.action("heal", 4, 1));
 
             holders.Clear();
@@ -68,8 +68,10 @@ public class actionInventory : MonoBehaviour
         if (player)
         {
             invenoryAmount = GameObject.FindGameObjectWithTag("InventoryAmount").GetComponent<Text>();
-            print("Inventory: " + unitActions.Count.ToString() + "/" + maxInventorySpace);
-            invenoryAmount.text = "Inventory: " + unitActions.Count.ToString() + "/" + maxInventorySpace;
+            if (invenoryAmount != null)
+            {
+                invenoryAmount.text = "Inventory: " + unitActions.Count.ToString() + "/" + maxInventorySpace;
+            }
         }
     }
     public void addAction(actionsClass.action action) 
@@ -109,7 +111,6 @@ public class actionInventory : MonoBehaviour
     }
     void startTurn() 
     {
-        gameObject.GetComponent<HealthScript>().block = 0; gameObject.GetComponent<HealthScript>().updateStats();
         gameObject.GetComponent<HealthScript>().newTurn();
         if (gameObject.GetComponent<HealthScript>().alive == false)
         {
@@ -217,7 +218,7 @@ public class actionInventory : MonoBehaviour
             case enemyType.basic:
                 unitActions.Add(new actionsClass.action("strike", 5, 0));
                 unitActions.Add(new actionsClass.action("strike", 6, 0));
-                unitActions.Add(new actionsClass.action("defend", 7, 0));
+                unitActions.Add(new actionsClass.action("strike", 7, 0));
                 break;
             case enemyType.aggresive:
                 unitActions.Add(new actionsClass.action("strike", 10, 1));
@@ -232,13 +233,14 @@ public class actionInventory : MonoBehaviour
             case enemyType.healer:
                 unitActions.Add(new actionsClass.action("strike", 5, 0));
                 unitActions.Add(new actionsClass.action("heal", 6, 0));
+                unitActions.Add(new actionsClass.action("heal", 7, 0));
                 unitActions.Add(new actionsClass.action("heal", 15, 2));
                 break;
             case enemyType.poisoner:
                 unitActions.Add(new actionsClass.action("strike", 8, 0));
                 unitActions.Add(new actionsClass.action("heal", 7, 0));
-                unitActions.Add(new actionsClass.action("poison", 4, 0));
-                unitActions.Add(new actionsClass.action("poison", 10, 2));
+                unitActions.Add(new actionsClass.action("poison", 2, 1));
+                unitActions.Add(new actionsClass.action("poison", 5, 2));
                 break;
         }
         foreach (var action in unitActions)
@@ -252,6 +254,6 @@ public class actionInventory : MonoBehaviour
     }
     int randomNum() 
     {
-        return (gameManager.encounterCount + Random.Range(-3, 4));
+        return (gameManager.encounterCount + Random.Range(2, 6));
     }
 }
